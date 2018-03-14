@@ -151,7 +151,10 @@
         app:layout_constraintEnd_toStartOf="@+id/guideline_borda_edit_text_d"
         app:layout_constraintStart_toStartOf="@+id/guideline_borda_edit_text_e"
         app:layout_constraintTop_toTopOf="@+id/editText"
-        app:srcCompat="@drawable/ic_person" />
+        app:srcCompat="@drawable/ic_person"
+        android:layout_marginRight="280dp"
+        android:layout_marginLeft="8dp"
+        tools:ignore="RtlCompat,VectorDrawableCompat" />
 
     <ImageView
         android:id="@+id/imageView5"
@@ -165,6 +168,8 @@
         app:layout_constraintEnd_toEndOf="@+id/editText2"
         app:layout_constraintStart_toStartOf="@+id/guideline_borda_edit_text_e"
         app:layout_constraintTop_toTopOf="@+id/editText2"
-        app:srcCompat="@drawable/ic_lock_branco" />
+        app:srcCompat="@drawable/ic_lock_branco"
+        tools:ignore="RtlCompat,VectorDrawableCompat"
+        android:layout_marginRight="280dp" />
 
 </android.support.constraint.ConstraintLayout>

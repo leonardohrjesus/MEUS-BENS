@@ -1,0 +1,99 @@
+{
+  "project_info": {
+    "project_number": "418800496300",
+    "firebase_url": "https://meus-bens-2c761.firebaseio.com",
+    "project_id": "meus-bens-2c761",
+    "storage_bucket": "meus-bens-2c761.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:418800496300:android:c23d979b0fed9d53",
+        "android_client_info": {
+          "package_name": "br.com.android.leonardohrjesus.meusbens"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "418800496300-nf969fu09q4k4oo486ihtnrcenhv6plo.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "br.com.android.leonardohrjesus.meusbens",
+            "certificate_hash": "dd50f35a7c5cbda6763a1722079fcda770bdea10"
+          }
+        },
+        {
+          "client_id": "418800496300-fp4mdp9dbufdh9b2kcpejapmrtct4ivq.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAk0ikBFUdG000c8BqA5y0cOIbi2MCpaKk"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "418800496300-fp4mdp9dbufdh9b2kcpejapmrtct4ivq.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:418800496300:android:260a47c613576bef",
+        "android_client_info": {
+          "package_name": "com.example.leonardo.meusbens"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "418800496300-tft0m0ihtoq6nf3ikt4reng0n61kltnj.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.leonardo.meusbens",
+            "certificate_hash": "6d35323942757be9a526d478eca13693e0b235d4"
+          }
+        },
+        {
+          "client_id": "418800496300-fp4mdp9dbufdh9b2kcpejapmrtct4ivq.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAk0ikBFUdG000c8BqA5y0cOIbi2MCpaKk"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "418800496300-fp4mdp9dbufdh9b2kcpejapmrtct4ivq.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

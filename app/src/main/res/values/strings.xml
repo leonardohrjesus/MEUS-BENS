@@ -1,4 +1,6 @@
 <resources>
     <string name="app_name">MeusBens</string>
     <string name="titulo_meus_bens">MeusBens</string>
+    <string name="title_activity_cadastro">CadastroActivity</string>
+    <string name="botao_cadastrar">Cadastrar</string>
 </resources>
