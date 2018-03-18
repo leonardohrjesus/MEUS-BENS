@@ -19,7 +19,7 @@
 
         android:layout_marginBottom="8dp"
         android:layout_marginTop="8dp"
-        android:background="@drawable/usuario"
+        android:background="@drawable/ic_account_circle_black_24dp"
         app:layout_constraintBottom_toTopOf="@+id/edit_cadastro_nome"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

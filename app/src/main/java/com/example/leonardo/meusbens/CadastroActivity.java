@@ -73,9 +73,10 @@ public class CadastroActivity extends AppCompatActivity {
                 if( task.isSuccessful() ){
 
                     Toast.makeText(CadastroActivity.this, "Sucesso ao cadastrar usuário", Toast.LENGTH_LONG ).show();
-
+                    //String uidgerado =
                     //Parei aqui tenho q pegar uid nao lembro
-                    String identificadorUsuario =  usuario.getId();
+                    //String identificadorUsuario =  usuario.getId();
+                    String identificadorUsuario =   autenticacao.getUid();
                     usuario.setId( identificadorUsuario );
                     usuario.salvar();
 
