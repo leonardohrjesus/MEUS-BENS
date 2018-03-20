@@ -10,6 +10,12 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.leonardo.meusbens.config.ConfiguracaoFirebase;
+import com.facebook.AccessToken;
+import com.facebook.CallbackManager;
+import com.facebook.FacebookCallback;
+import com.facebook.FacebookException;
+import com.facebook.login.LoginResult;
+import com.facebook.login.widget.LoginButton;
 import com.google.android.gms.auth.api.Auth;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
@@ -22,16 +28,19 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthCredential;
 import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FacebookAuthProvider;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
 
 public class LoginActivity extends AppCompatActivity {
 
-    TextView irparacadastro ;
-    GoogleSignInClient  mGoogleSignInClient;
-    private static final int RC_SIGN_IN = 9001;
+    private LoginButton loginButton;
+    private CallbackManager callbackManager;
 
+    private TextView irparacadastro ;
+    private GoogleSignInClient  mGoogleSignInClient;
+    private static final int RC_SIGN_IN = 9001;
     private FirebaseAuth autenticacao;
 
 
@@ -40,6 +49,34 @@ public class LoginActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.login_main);
+
+        verificarUsuarioLogado();
+
+        // Initialize Facebook Login button
+        callbackManager = CallbackManager.Factory.create();
+        LoginButton loginButton = (LoginButton) findViewById(R.id.login_button);
+        loginButton.setReadPermissions("email", "public_profile");
+        loginButton.registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
+            @Override
+            public void onSuccess(LoginResult loginResult) {
+              //  Log.d(TAG, "facebook:onSuccess:" + loginResult);
+                handleFacebookAccessToken(loginResult.getAccessToken());
+
+                // callbackManager(loginResult.getAccessToken());
+            }
+
+            @Override
+            public void onCancel() {
+                Log.d("10000", "facebook:onCancel");
+                // ...
+            }
+
+            @Override
+            public void onError(FacebookException error) {
+                Log.d("10000", "facebook:onError", error);
+                // ...
+            }
+        });
 
 
         //LOGIN GOOGLE
@@ -74,7 +111,6 @@ public class LoginActivity extends AppCompatActivity {
                 if (view.getId() == R.id.sign_in_button){
                     signIn();
 
-
                 }
 
             }
@@ -82,26 +118,19 @@ public class LoginActivity extends AppCompatActivity {
 
     }
 
+
+
     @Override
     public void onStart() {
         super.onStart();
-        // Check if user is signed in (non-null) and update UI accordingly.
-
-        //FirebaseUser currentUser = autenticacao.getCurrentUser();
         autenticacao = ConfiguracaoFirebase.getFirebaseAutenticacao();
-        //updateUI(currentUser);
     }
 
 
     private void signIn() {
         Intent signInIntent = mGoogleSignInClient.getSignInIntent();
         startActivityForResult(signInIntent, RC_SIGN_IN);
-        Log.i("50000", "signIn()");
-    }
 
-
-    private  void logOut(){
-        ConfiguracaoFirebase.getFirebaseAutenticacao().signOut();
     }
 
 
@@ -110,25 +139,25 @@ public class LoginActivity extends AppCompatActivity {
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
+        callbackManager.onActivityResult(requestCode, resultCode, data);
 
         // Result returned from launching the Intent from GoogleSignInApi.getSignInIntent(...);
         if (requestCode == RC_SIGN_IN) {
             GoogleSignInResult result = Auth.GoogleSignInApi.getSignInResultFromIntent(data);
             if (result.isSuccess()) {
-                Log.i("50000", "signInWithCredential:success");
+
                 // Google Sign In was successful, authenticate with Firebase
                 GoogleSignInAccount account = result.getSignInAccount();
                 firebaseAuthWithGoogle(account);
             } else {
-                Log.i("50000", "signInWithCredential failed");
+
+
                 // Google Sign In failed, update UI appropriately
-                // ...
             }
         }
     }
 
     private void firebaseAuthWithGoogle(GoogleSignInAccount acct) {
-        Log.d("50000", "firebaseAuthWithGoogle:" + acct.getId());
 
         AuthCredential credential = GoogleAuthProvider.getCredential(acct.getIdToken(), null);
         autenticacao.signInWithCredential(credential)
@@ -136,24 +165,60 @@ public class LoginActivity extends AppCompatActivity {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
-                            // Sign in success, update UI with the signed-in user's information
-                            Log.i("50000", "signInWithCredential:success");
-                         //   FirebaseUser user = autenticacao.getCurrentUser();
-                            Toast.makeText(LoginActivity.this, "Com Sucesso",
+
+                            Toast.makeText(LoginActivity.this, "Login Realizado com Sucesso!",Toast.LENGTH_SHORT).show();
+                            abrirTelaPrincipal();
+                        } else {
+
+                            Toast.makeText(LoginActivity.this, "Erro ao realizar login com  Google.",
                                     Toast.LENGTH_SHORT).show();
-                    //        updateUI(user);
+                        }
+
+
+                    }
+                });
+    }
+
+    private void abrirTelaPrincipal(){
+        Intent intent = new Intent(LoginActivity.this, DashboradActivity.class);
+        startActivity( intent );
+        finish();
+    }
+
+    private void verificarUsuarioLogado(){
+        autenticacao = ConfiguracaoFirebase.getFirebaseAutenticacao();
+        if( autenticacao.getCurrentUser() != null ){
+            abrirTelaPrincipal();
+        }
+    }
+
+    private void handleFacebookAccessToken(AccessToken token) {
+        Log.d("10000", "handleFacebookAccessToken:" + token);
+
+        AuthCredential credential = FacebookAuthProvider.getCredential(token.getToken());
+        autenticacao.signInWithCredential(credential)
+                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<AuthResult> task) {
+                        if (task.isSuccessful()) {
+                            // Sign in success, update UI with the signed-in user's information
+                            Log.d("10000", "signInWithCredential:success");
+                            abrirTelaPrincipal();
+                            //FirebaseUser user = mAuth.getCurrentUser();
+                            //updateUI(user);
                         } else {
                             // If sign in fails, display a message to the user.
-                            Log.i("50000", "signInWithCredential:failure", task.getException());
+                            Log.w("10000", "signInWithCredential:failure", task.getException());
                             Toast.makeText(LoginActivity.this, "Authentication failed.",
                                     Toast.LENGTH_SHORT).show();
-                           // updateUI(null);
+                       //     updateUI(null);
                         }
 
                         // ...
                     }
                 });
     }
+
 
 
 }
