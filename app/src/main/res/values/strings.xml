@@ -4,7 +4,10 @@
     <string name="title_activity_cadastro">CadastroActivity</string>
     <string name="botao_cadastrar">Cadastrar</string>
     <string name="title_activity_dashborad">DashboradActivity</string>
-    <string name="facebook_app_id">141023603221324</string>
-    <string name="fb_login_protocol_scheme">fb141023603221324</string>
+    <string name="facebook_app_id">193200164626731</string>
+    <string name="fb_login_protocol_scheme">fb193200164626731</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 
 </resources>

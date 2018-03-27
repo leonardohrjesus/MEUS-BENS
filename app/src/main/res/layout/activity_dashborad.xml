@@ -5,15 +5,49 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/colorPrimary"
-    tools:context="com.example.leonardo.meusbens.DashboradActivity">
+    tools:context="com.example.leonardo.meusbens.activity.DashboradActivity">
 
 
-    <Button
-        android:id="@+id/id_button_sair"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="sair"
-        tools:layout_editor_absoluteX="115dp"
-        tools:layout_editor_absoluteY="198dp"
+    <include
+        android:id="@+id/toolbar_principal"
+        layout="@layout/toolbar"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <android.support.v4.view.ViewPager
+        android:id="@+id/view_pager_main"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginBottom="16dp"
+        android:layout_marginTop="16dp"
+        android:layout_weight="1"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
         tools:ignore="MissingConstraints" />
+
+    <com.example.leonardo.meusbens.util.SlidingTabLayout
+        android:id="@+id/sliding_tab_main"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        android:layout_marginBottom="8dp"
+
+        android:background="@color/colorPrimary"
+        android:elevation="8dp"
+        app:layout_constraintBottom_toTopOf="@+id/toolbar_principal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+    </com.example.leonardo.meusbens.util.SlidingTabLayout>
+
+
+
+
+
+
+
 </android.support.constraint.ConstraintLayout>

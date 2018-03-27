@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/colorPrimary"
-    tools:context="com.example.leonardo.meusbens.LoginActivity">
+    tools:context="com.example.leonardo.meusbens.activity.LoginActivity">
 
     <TextView
         android:id="@+id/id_text_view_meus_bens"
