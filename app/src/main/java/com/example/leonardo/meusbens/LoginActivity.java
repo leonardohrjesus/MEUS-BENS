@@ -195,6 +195,7 @@ public class LoginActivity extends AppCompatActivity {
     private void handleFacebookAccessToken(AccessToken token) {
         Log.d("10000", "handleFacebookAccessToken:" + token);
 
+
         AuthCredential credential = FacebookAuthProvider.getCredential(token.getToken());
         autenticacao.signInWithCredential(credential)
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
@@ -207,6 +208,7 @@ public class LoginActivity extends AppCompatActivity {
                             //FirebaseUser user = mAuth.getCurrentUser();
                             //updateUI(user);
                         } else {
+                            Log.d("10000", "handleFacebookAccessToken:" + task.getResult());
                             // If sign in fails, display a message to the user.
                             Log.w("10000", "signInWithCredential:failure", task.getException());
                             Toast.makeText(LoginActivity.this, "Authentication failed.",

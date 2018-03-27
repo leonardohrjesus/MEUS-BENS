@@ -34,6 +34,7 @@ import com.google.firebase.auth.AuthCredential;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FacebookAuthProvider;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
 
 import java.security.MessageDigest;
@@ -47,6 +48,9 @@ public class LoginActivity extends AppCompatActivity {
     private GoogleSignInClient  mGoogleSignInClient;
     private static final int RC_SIGN_IN = 9001;
     private FirebaseAuth autenticacao;
+    private  String TAG = "REIANDROID";
+
+
 
 
 
@@ -55,28 +59,13 @@ public class LoginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.login_main);
 
-        try {
-            PackageInfo info = getPackageManager().getPackageInfo(
-                    "com.example.leonardo.meusbens",
-                    PackageManager.GET_SIGNATURES);
-            for (Signature signature : info.signatures) {
-                MessageDigest md = MessageDigest.getInstance("SHA");
-                md.update(signature.toByteArray());
-                Log.d("KeyHash:", Base64.encodeToString(md.digest(), Base64.DEFAULT));
-            }
-        } catch (PackageManager.NameNotFoundException e) {
-
-        } catch (NoSuchAlgorithmException e) {
-
-        }
 
         verificarUsuarioLogado();
 
         // Initialize Facebook Login button
         callbackManager = CallbackManager.Factory.create();
         LoginButton loginButton = (LoginButton) findViewById(R.id.login_button);
-    //    loginButton.setReadPermissions("email", "public_profile");
-        loginButton.setReadPermissions("email");
+        loginButton.setReadPermissions("email", "public_profile");
         loginButton.registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
             @Override
             public void onSuccess(LoginResult loginResult) {
@@ -210,6 +199,7 @@ public class LoginActivity extends AppCompatActivity {
 
     //pegar as credenciais
     private void handleFacebookAccessToken(AccessToken token) {
+        Log.d(TAG, "handleFacebookAccessToken:" + token);
 
         AuthCredential credential = FacebookAuthProvider.getCredential(token.getToken());
         autenticacao.signInWithCredential(credential)
@@ -218,18 +208,23 @@ public class LoginActivity extends AppCompatActivity {
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
                             // Sign in success, update UI with the signed-in user's information
+                            Log.d(TAG, "signInWithCredential:success");
                             abrirTelaPrincipal();
-                            //FirebaseUser user = mAuth.getCurrentUser();
-                            //updateUI(user);
+                          //  FirebaseUser user = mAuth.getCurrentUser();
+                         //   updateUI(user);
                         } else {
-                            Log.w("teste", "signInWithCredential:failure", task.getException());
-                            Toast.makeText(LoginActivity.this, "Erro  na Autenticação! ."+task.getException(),
+                            // If sign in fails, display a message to the user.
+
+                            Log.w(TAG, "signInWithCredential:failure", task.getException() );
+                            Toast.makeText(LoginActivity.this, "Authentication failed.",
                                     Toast.LENGTH_SHORT).show();
+                     //       updateUI(null);
                         }
+
+                        // ...
                     }
                 });
     }
-
 
 
 }
