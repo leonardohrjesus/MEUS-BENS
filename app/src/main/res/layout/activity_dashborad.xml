@@ -24,24 +24,20 @@
         android:layout_weight="1"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        tools:ignore="MissingConstraints"
-        tools:layout_editor_absoluteY="16dp" />
+        tools:ignore="MissingConstraints" />
 
-        <com.example.leonardo.meusbens.util.SlidingTabLayout
-            android:id="@+id/sliding_tab_main"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="bottom"
-            android:layout_marginBottom="20dp"
-            android:layout_marginTop="1100dp"
-            android:background="@color/terceira_cor"
-            android:elevation="8dp"
-            app:layout_constraintBottom_toTopOf="@+id/toolbar_principal"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
+    <com.example.leonardo.meusbens.util.SlidingTabLayout
+        android:id="@+id/sliding_tab_main"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        android:background="@color/colorPrimaryDark"
+        android:elevation="8dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
 
-        </com.example.leonardo.meusbens.util.SlidingTabLayout>
+    </com.example.leonardo.meusbens.util.SlidingTabLayout>
 
 
 
