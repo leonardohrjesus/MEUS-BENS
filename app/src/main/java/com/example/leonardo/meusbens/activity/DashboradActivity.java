@@ -34,6 +34,7 @@ public class DashboradActivity extends AppCompatActivity {
          *
          **************************************************************************/
         slidingTabLayout = (SlidingTabLayout) findViewById(R.id.sliding_tab_main);
+
         viewPager = (ViewPager) findViewById(R.id.view_pager_main);
 
         /**************************************************************************

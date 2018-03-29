@@ -5,11 +5,15 @@ import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.Signature;
 import android.support.annotation.NonNull;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Base64;
 import android.util.Log;
+import android.util.TypedValue;
 import android.view.View;
+import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -43,6 +47,7 @@ import java.security.NoSuchAlgorithmException;
 public class LoginActivity extends AppCompatActivity {
 
     private LoginButton loginButton;
+    private TextView esqueceSenha;
     private CallbackManager callbackManager;
     private TextView irparacadastro ;
     private GoogleSignInClient  mGoogleSignInClient;
@@ -61,6 +66,8 @@ public class LoginActivity extends AppCompatActivity {
 
 
         verificarUsuarioLogado();
+
+        esqueceSenha = (TextView) findViewById(R.id.id_textView_esquece_sua_senha);
 
         // Initialize Facebook Login button
         callbackManager = CallbackManager.Factory.create();
@@ -124,6 +131,43 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
 
+        esqueceSenha.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                createAndDisplayDialog();
+            }
+        });
+
+
+    }
+
+    private void createAndDisplayDialog() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        LinearLayout layout       = new LinearLayout(this);
+        TextView tvMessage        = new TextView(this);
+        final EditText etInput    = new EditText(this);
+
+        tvMessage.setText("Enter name:");
+        tvMessage.setTextSize(TypedValue.COMPLEX_UNIT_SP, 16f);
+        etInput.setSingleLine();
+        layout.setOrientation(LinearLayout.VERTICAL);
+        layout.addView(tvMessage);
+        layout.addView(etInput);
+        layout.setPadding(50, 40, 50, 10);
+
+        builder.setView(layout);
+
+        builder.setNegativeButton("Cancel", (dialog, which) -> {
+            Toast.makeText(this, "Cancel clicked", Toast.LENGTH_SHORT).show();
+            dialog.cancel();
+        });
+
+        builder.setPositiveButton("Done", (dialog, which) -> {
+            String name = etInput.getText().toString();
+            Toast.makeText(this, "Name entered: " + name, Toast.LENGTH_SHORT).show();
+        });
+
+        builder.create().show();
     }
 
 
