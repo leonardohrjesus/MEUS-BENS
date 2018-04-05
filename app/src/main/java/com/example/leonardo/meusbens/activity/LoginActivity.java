@@ -55,15 +55,10 @@ public class LoginActivity extends AppCompatActivity {
     private FirebaseAuth autenticacao;
     private  String TAG = "REIANDROID";
 
-
-
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.login_main);
-
 
         verificarUsuarioLogado();
 
@@ -116,7 +111,6 @@ public class LoginActivity extends AppCompatActivity {
                 Intent intent = new Intent(LoginActivity.this,CadastroActivity.class);
                 startActivity(intent);
                 finish();
-
             }
         });
 
@@ -125,9 +119,7 @@ public class LoginActivity extends AppCompatActivity {
             public void onClick(View view) {
                 if (view.getId() == R.id.sign_in_button){
                     signIn();
-
                 }
-
             }
         });
 
@@ -137,7 +129,6 @@ public class LoginActivity extends AppCompatActivity {
                 createAndDisplayDialog();
             }
         });
-
 
     }
 
@@ -170,21 +161,17 @@ public class LoginActivity extends AppCompatActivity {
         builder.create().show();
     }
 
-
     @Override
     public void onStart() {
         super.onStart();
         autenticacao = ConfiguracaoFirebase.getFirebaseAutenticacao();
     }
 
-
     private void signIn() {
         Intent signInIntent = mGoogleSignInClient.getSignInIntent();
         startActivityForResult(signInIntent, RC_SIGN_IN);
 
     }
-
-
 
 
     @Override
@@ -254,18 +241,13 @@ public class LoginActivity extends AppCompatActivity {
                             // Sign in success, update UI with the signed-in user's information
                             Log.d(TAG, "signInWithCredential:success");
                             abrirTelaPrincipal();
-                          //  FirebaseUser user = mAuth.getCurrentUser();
-                         //   updateUI(user);
                         } else {
-                            // If sign in fails, display a message to the user.
 
                             Log.w(TAG, "signInWithCredential:failure", task.getException() );
-                            Toast.makeText(LoginActivity.this, "Authentication failed.",
+                            Toast.makeText(LoginActivity.this, " Falha na Autenticação  : "+task.getException(),
                                     Toast.LENGTH_SHORT).show();
-                     //       updateUI(null);
                         }
 
-                        // ...
                     }
                 });
     }

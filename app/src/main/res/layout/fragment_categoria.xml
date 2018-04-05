@@ -26,36 +26,43 @@
             android:layout_marginEnd="8dp"
             android:layout_marginStart="8dp"
             android:layout_marginTop="4dp"
-            android:src="@color/colorPrimaryDark"
+            android:background="@color/colorPrimaryDark"
+            android:src="@drawable/ic_important_devices_white_50dp"
             app:layout_constraintBottom_toTopOf="@+id/guideline2"
             app:layout_constraintEnd_toStartOf="@+id/imageButtonquarto"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/guideline1" />
+            app:layout_constraintTop_toTopOf="@+id/guideline1"
+            app:layout_constraintVertical_bias="0.0" />
 
         <ImageButton
             android:id="@+id/imageButtonsegundo"
             android:layout_width="0dp"
+
             android:layout_height="0dp"
             android:layout_marginBottom="4dp"
             android:layout_marginEnd="8dp"
             android:layout_marginStart="8dp"
             android:layout_marginTop="4dp"
-            android:src="@color/colorPrimaryDark"
+            android:background="@color/colorPrimaryDark"
+            android:src="@drawable/ic_directions_car_white_50dp"
             app:layout_constraintBottom_toTopOf="@+id/guideline1"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/imageButtonprimeiro"
-            app:layout_constraintTop_toTopOf="@+id/guideline" />
+            app:layout_constraintTop_toTopOf="@+id/guideline"
+            app:layout_constraintVertical_bias="0.0" />
 
 
         <ImageButton
             android:id="@+id/imageButtonquarto"
             android:layout_width="0dp"
+
             android:layout_height="0dp"
             android:layout_marginBottom="4dp"
             android:layout_marginEnd="8dp"
             android:layout_marginStart="8dp"
             android:layout_marginTop="4dp"
-            android:src="@color/colorPrimaryDark"
+            android:background="@color/colorPrimaryDark"
+            android:src="@drawable/ic_work_white_50dp"
             app:layout_constraintBottom_toTopOf="@+id/guideline2"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/imageButtonterceiro"
@@ -64,13 +71,15 @@
         <ImageButton
             android:id="@+id/imageButtonprimeiro"
             android:layout_width="0dp"
-            android:layout_height="0dp"
 
+            android:layout_height="0dp"
             android:layout_marginBottom="4dp"
+
             android:layout_marginEnd="8dp"
             android:layout_marginStart="8dp"
             android:layout_marginTop="4dp"
-            android:src="@color/colorPrimaryDark"
+            android:background="@color/colorPrimaryDark"
+            android:src="@drawable/ic_home_white_50dp"
             app:layout_constraintBottom_toTopOf="@+id/guideline1"
             app:layout_constraintEnd_toStartOf="@+id/imageButtonsegundo"
             app:layout_constraintStart_toStartOf="parent"
@@ -81,12 +90,13 @@
         <ImageButton
             android:id="@+id/imageButtonquinto"
             android:layout_width="0dp"
+
             android:layout_height="0dp"
-            android:layout_marginBottom="60dp"
             android:layout_marginEnd="8dp"
             android:layout_marginStart="8dp"
             android:layout_marginTop="4dp"
-            android:src="@color/colorPrimaryDark"
+            android:background="@color/colorPrimaryDark"
+            android:src="@drawable/ic_brush_white_50dp"
             app:layout_constraintBottom_toTopOf="@+id/guideline3"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
@@ -99,21 +109,21 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            app:layout_constraintGuide_begin="100dp" />
+            app:layout_constraintGuide_begin="80dp" />
 
         <android.support.constraint.Guideline
             android:id="@+id/guideline1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            app:layout_constraintGuide_begin="300dp" />
+            app:layout_constraintGuide_begin="230dp" />
 
         <android.support.constraint.Guideline
             android:id="@+id/guideline2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            app:layout_constraintGuide_begin="500dp" />
+            app:layout_constraintGuide_begin="380dp" />
 
 
 
@@ -122,7 +132,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            app:layout_constraintGuide_begin="700dp" />
+            app:layout_constraintGuide_begin="530dp" />
 
 
 
