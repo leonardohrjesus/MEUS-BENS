@@ -18,8 +18,6 @@ import com.google.firebase.auth.FirebaseAuth;
 
 public class PrincipalFragment extends Fragment {
 
-    private FirebaseAuth autenticacao;
-    private Button button;
 
     public PrincipalFragment() {
     }
@@ -36,16 +34,6 @@ public class PrincipalFragment extends Fragment {
 
         //Montar listView e adapter
 
-        button = (Button) view.findViewById(R.id.id_button_sair);
-
-        button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                autenticacao.getInstance().signOut();
-                Intent intent = new Intent(getActivity(),LoginActivity.class);
-                startActivity(intent);
-            }
-        });
 
 
         return view;
