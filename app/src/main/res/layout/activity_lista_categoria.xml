@@ -6,8 +6,44 @@
     android:layout_height="match_parent"
     tools:context="com.example.leonardo.meusbens.activity.ListaCategoriaActivity">
 
-    
 
+    <LinearLayout
+        android:id="@+id/linearLayout2"
+        android:layout_width="0dp"
+        android:layout_height="104dp"
+        android:background="@color/terceira_cor"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toTopOf="@+id/listaexpansivel"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/toolbalistacadastro">
 
+        <TextView
+            android:id="@+id/idTextViewSimboloDinheiro"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="R$:"
+            android:textColor="@color/branco"
+            android:textSize="80dp" />
+    </LinearLayout>
+
+    <include
+        android:id="@+id/toolbalistacadastro"
+        layout="@layout/toolbar"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <include
+        android:id="@+id/listaexpansivel"
+        layout="@layout/layoutlistexpansivel"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout2" />
 
 </android.support.constraint.ConstraintLayout>

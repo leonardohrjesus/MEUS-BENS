@@ -11,6 +11,7 @@ import android.widget.ImageView;
 
 import com.example.leonardo.meusbens.R;
 import com.example.leonardo.meusbens.activity.ListaCategoriaActivity;
+import com.example.leonardo.meusbens.teste.TesteActivity;
 
 
 public class CategoriaFragment extends Fragment {
@@ -36,7 +37,7 @@ public class CategoriaFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
+        // Inflate the layoutListExpansivel for this fragment
 
 
         View view = inflater.inflate(R.layout.fragment_categoria,container,false);
@@ -94,7 +95,7 @@ public class CategoriaFragment extends Fragment {
     private void irParaCategoriaEspecifica(String categoriaEspecifica) {
 
             Intent intent = new Intent(getActivity(), ListaCategoriaActivity.class);
-                intent.putExtra("categoriaEscolhida",categoriaEspecifica);
+        //        intent.putExtra("categoriaEscolhida",categoriaEspecifica);
             startActivity(intent);
 
 

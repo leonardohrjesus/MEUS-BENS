@@ -12,5 +12,7 @@
     <string name="title_activity_lista_categoria">ListaCategoriaActivity</string>
     <string name="title_activity_item_categoria">ItemCategoriaActivity</string>
     <string name="action_sair">Sair</string>
+    <string name="adicionar">Adicionar</string>
+    <string name="title_activity_item">ItemActivity</string>
 
 </resources>

@@ -6,7 +6,7 @@
     android:background="@color/colorPrimary"
     tools:context="com.example.leonardo.meusbens.fragments.PrincipalFragment">
 
-    <!-- TODO: Update blank fragment layout -->
+    <!-- TODO: Update blank fragmlayoutListExpansivelyout -->
 
     <TextView
         android:id="@+id/textView"

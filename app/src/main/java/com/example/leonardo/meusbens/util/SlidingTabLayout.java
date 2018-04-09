@@ -33,7 +33,7 @@ import android.widget.TextView;
  * which color is used for any individual position.
  * <p>
  * The views used as tabs can be customized by calling {@link #setCustomTabView(int, int)},
- * providing the layout ID of your custom layout.
+ * providing the layoutListExpansivel ID of your custom layoutListExpansivel.
  */
 public class SlidingTabLayout extends HorizontalScrollView {
     /**
