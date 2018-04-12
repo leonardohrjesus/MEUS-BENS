@@ -14,5 +14,7 @@
     <string name="action_sair">Sair</string>
     <string name="adicionar">Adicionar</string>
     <string name="title_activity_item">ItemActivity</string>
+    <string name="action_voltar">Voltar</string>
+    <string name="action_subcategoria">Sub Categoria</string>
 
 </resources>
