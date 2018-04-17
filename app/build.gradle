@@ -4,7 +4,7 @@ android {
     compileSdkVersion 26
     defaultConfig {
         applicationId "com.example.leonardo.meusbens"
-        minSdkVersion 15
+        minSdkVersion 20
         targetSdkVersion 26
         versionCode 1
         versionName "1.0"
@@ -40,11 +40,14 @@ dependencies {
     compile 'com.google.firebase:firebase-auth:11.8.0'
     implementation 'com.facebook.android:facebook-login:[4,5)'
     compile 'com.google.firebase:firebase-auth:11.8.0'
+    compile 'com.github.andreilisun:circular-layout:1.0'
+
 
 
 }
 
 apply plugin: 'com.google.gms.google-services'
+
 
 
 

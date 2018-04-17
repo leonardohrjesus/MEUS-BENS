@@ -35,7 +35,6 @@ public class DashboradActivity extends AppCompatActivity {
          * Definicao findview
          *
          **************************************************************************/
-        buttonMenuSair = (Button) findViewById(R.id.id_button_sair);
 
         /**************************************************************************
          * configurar Toolbar

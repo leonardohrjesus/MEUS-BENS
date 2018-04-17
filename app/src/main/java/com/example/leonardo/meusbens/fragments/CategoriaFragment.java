@@ -95,7 +95,7 @@ public class CategoriaFragment extends Fragment {
     private void irParaCategoriaEspecifica(String categoriaEspecifica) {
 
             Intent intent = new Intent(getActivity(), ListaCategoriaActivity.class);
-        //        intent.putExtra("categoriaEscolhida",categoriaEspecifica);
+               intent.putExtra("categoriaEscolhida",categoriaEspecifica);
             startActivity(intent);
 
 

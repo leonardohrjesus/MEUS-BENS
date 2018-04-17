@@ -63,6 +63,14 @@
             android:name=".activity.ItemActivity"
             android:label="@string/title_activity_item"
             android:theme="@style/AppTheme"/>
+        <activity
+            android:name=".activity.SubCategoriaActivity"
+            android:label="@string/title_activity_item"
+            android:theme="@style/AppTheme"/>
+        <activity
+            android:name=".teste.MainActivity"
+            android:label="@string/title_activity_item"
+            android:theme="@style/AppTheme"/>
     </application>
 
 </manifest>

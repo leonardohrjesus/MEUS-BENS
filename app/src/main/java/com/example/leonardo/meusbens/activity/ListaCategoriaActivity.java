@@ -105,7 +105,10 @@ public class ListaCategoriaActivity extends AppCompatActivity {
 
     private void irParaItem() {
         Intent intent = new Intent(ListaCategoriaActivity.this,ItemActivity.class);
+        intent.putExtra("categoriaEscolhida",retornoCategoriaEspecifica);
+
         startActivity(intent);
+
     }
 
 
