@@ -1,5 +1,6 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="250dp"
     android:layout_height="200dp"
     android:background="@color/branco"
@@ -15,11 +16,10 @@
         android:fontFamily="sans-serif"
         android:text="Meus Bens"
         android:textAlignment="center"
-        android:textColor="@color/colorPrimaryDark"
+        android:textColor="?android:attr/colorPrimaryDark"
         android:textSize="30sp"
         app:layout_constraintBottom_toTopOf="@+id/categoriaCaixaCategoria"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -31,14 +31,17 @@
 
         android:layout_alignStart="@+id/botaoAdicionarSubCategoria"
         android:layout_centerVertical="true"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
         android:hint="@string/AdicioneCategoria"
         android:inputType="textEmailAddress"
         android:textAlignment="center"
         android:textAppearance="@style/TextAppearance.AppCompat.Button"
+        android:textColor="@color/colorPrimary"
         android:textColorHint="@color/colorPrimaryDark"
+        android:textColorLink="@color/colorPrimary"
         app:layout_constraintBottom_toTopOf="@+id/botaoAdicionarSubCategoria"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textViewCaixaDialog" />
 
@@ -49,10 +52,14 @@
 
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginBottom="15dp"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
         android:background="@color/colorPrimary"
         android:text="Adicionar"
         android:textColor="@color/branco"
-        app:layout_constraintTop_toBottomOf="@+id/categoriaCaixaCategoria" />
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
-</RelativeLayout>
+</android.support.constraint.ConstraintLayout>

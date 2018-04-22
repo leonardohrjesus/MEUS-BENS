@@ -3,6 +3,8 @@
     package="com.example.leonardo.meusbens">
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+
 
     <application
         android:allowBackup="true"
@@ -61,10 +63,6 @@
             android:theme="@style/AppTheme" />
         <activity
             android:name=".activity.ItemActivity"
-            android:label="@string/title_activity_item"
-            android:theme="@style/AppTheme"/>
-        <activity
-            android:name=".activity.SubCategoriaActivity"
             android:label="@string/title_activity_item"
             android:theme="@style/AppTheme"/>
         <activity

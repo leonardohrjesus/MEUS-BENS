@@ -131,28 +131,28 @@ public class BancoDados extends SQLiteOpenHelper {
 
         db.update(TABELA_CLIENTE, values, COLUNA_CODIGO + "= ?", new String[] {String.valueOf(cliente.getCodigo())});
 
-    }
+    }*/
 
-    public List<Cliente> listatodososcontatos(){
-        List<Cliente> listaclientes  = new ArrayList<Cliente>();
-        String query  = "SELECT  * FROM " + TABELA_CLIENTE;
+    public List<Categoria> listaTodasCategorias(){
+        List<Categoria> listaCategorias = new ArrayList<Categoria>();
+
+        String query  = "SELECT  * FROM " + TABELA_CATEGORIA;
 
         SQLiteDatabase db = this.getWritableDatabase();
         Cursor c = db.rawQuery(query,null);
         if (c.moveToFirst()){
             do {
-                Cliente cliente = new Cliente();
-                cliente.setCodigo(Integer.parseInt(c.getString(0)));
-                cliente.setNome(c.getString(1));
-                cliente.setTelefone(c.getString(2));
-                cliente.setEmail(c.getString(3));
+                Categoria categoria= new Categoria();
+                categoria.setIdCategoria(Integer.parseInt(c.getString(0)));
+                categoria.setCategoria(c.getString(1));
+                categoria.setSubCategoria(c.getString(2));
 
-                listaclientes.add(cliente);
+                listaCategorias.add(categoria);
 
             }while (c.moveToNext());
         }
-        return listaclientes;
-    }*/
+        return listaCategorias;
+    }
 
 }
 

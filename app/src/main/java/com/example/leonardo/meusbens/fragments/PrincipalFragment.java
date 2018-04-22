@@ -11,6 +11,7 @@ import android.widget.Button;
 
 import com.example.leonardo.meusbens.activity.LoginActivity;
 import com.example.leonardo.meusbens.R;
+import com.example.leonardo.meusbens.teste.MainActivity;
 import com.google.firebase.auth.FirebaseAuth;
 
 
@@ -18,6 +19,7 @@ import com.google.firebase.auth.FirebaseAuth;
 
 public class PrincipalFragment extends Fragment {
 
+    private  Button botaoTesteMainActivity;
 
     public PrincipalFragment() {
     }
@@ -31,6 +33,16 @@ public class PrincipalFragment extends Fragment {
 
 
         View view = inflater.inflate(R.layout.fragment_principal,container,false);
+
+        botaoTesteMainActivity  = (Button) view.findViewById(R.id.botaoTesteMainAcivity);
+
+        botaoTesteMainActivity.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getContext(), MainActivity.class);
+                startActivity(intent);
+            }
+        });
 
         //Montar listView e adapter
 
