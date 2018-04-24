@@ -8,12 +8,13 @@ public class Item extends Categoria {
     private String id;
     private String descricao;
     private double valor;
+    private byte[] foto;
 
-    public Item(String categoria, String subCategoria, int idCategoria, String id, String nome, double valor) {
-        super(categoria, subCategoria, idCategoria);
-        this.id = id;
+    public Item(String categoria, String subCategoria,  String nome, double valor, byte[] foto) {
+        super(categoria, subCategoria );
         this.descricao = nome;
         this.valor = valor;
+        this.foto = foto;
     }
 
     public String getId() {
@@ -38,5 +39,13 @@ public class Item extends Categoria {
 
     public void setValor(double valor) {
         this.valor = valor;
+    }
+
+    public byte[] getFoto() {
+        return foto;
+    }
+
+    public void setFoto(byte[] foto) {
+        this.foto = foto;
     }
 }

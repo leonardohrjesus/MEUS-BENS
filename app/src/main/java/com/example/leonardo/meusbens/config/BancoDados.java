@@ -31,6 +31,7 @@ public class BancoDados extends SQLiteOpenHelper {
     private static  final String COLUNA_I_SUB_CATEGORIA = "sub_categoria";
     private static  final String COLUNA_I_ID= "id_itens";
     private static  final String COLUNA_I_VALOR= "valor";
+    private static  final String COLUNA_I_FOTO= "foto";
     private static  final String COLUNA_I_DESCRICAO= "descricao";
 
 
@@ -54,6 +55,7 @@ public class BancoDados extends SQLiteOpenHelper {
                 + COLUNA_I_ID+ " INTEGER PRIMARY KEY," + COLUNA_I_CATEGORIA_PRINCIPAL +" TEXT ,"
                 + COLUNA_I_SUB_CATEGORIA +" TEXT ,"
                 + COLUNA_I_VALOR +" REAL ,"
+                + COLUNA_I_FOTO + "BLOB ,"
                 + COLUNA_I_DESCRICAO + " TEXT )";
         db.execSQL(QUERY_COLUNA1);
 
@@ -86,6 +88,7 @@ public class BancoDados extends SQLiteOpenHelper {
         values.put(COLUNA_I_CATEGORIA_PRINCIPAL,item.getIdCategoria());
         values.put(COLUNA_I_SUB_CATEGORIA, item.getSubCategoria());
         values.put(COLUNA_I_VALOR, item.getValor());
+        values.put(COLUNA_I_FOTO, item.getFoto());
         values.put(COLUNA_I_DESCRICAO,item.getDescricao());
 
         db.insert(TABELA_ITENS,null,values);
