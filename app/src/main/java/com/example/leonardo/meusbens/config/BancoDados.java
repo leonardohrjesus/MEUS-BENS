@@ -80,12 +80,12 @@ public class BancoDados extends SQLiteOpenHelper {
 
     }
 
-   public  void  addItens(Item  item){
+   public  void   addItens(Item  item){
         SQLiteDatabase db = this.getWritableDatabase();
 
         ContentValues values = new ContentValues();
 
-        values.put(COLUNA_I_CATEGORIA_PRINCIPAL,item.getIdCategoria());
+        values.put(COLUNA_I_CATEGORIA_PRINCIPAL,item.getCategoria());
         values.put(COLUNA_I_SUB_CATEGORIA, item.getSubCategoria());
         values.put(COLUNA_I_VALOR, item.getValor());
         values.put(COLUNA_I_FOTO, item.getFoto());

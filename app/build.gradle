@@ -1,6 +1,8 @@
 apply plugin: 'com.android.application'
 
 android {
+    publishNonDefault  true //this line
+
     compileSdkVersion 26
     defaultConfig {
         applicationId "com.example.leonardo.meusbens"
@@ -12,8 +14,12 @@ android {
     }
     buildTypes {
         release {
+            debuggable true
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+        debug {
+            debuggable true
         }
     }
     compileOptions {
@@ -22,7 +28,9 @@ android {
     }
 }
 
+
 dependencies {
+
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     //noinspection GradleCompatible,GradleCompatible
     implementation 'com.android.support:appcompat-v7:26.1.0'
@@ -41,6 +49,7 @@ dependencies {
     implementation 'com.facebook.android:facebook-login:[4,5)'
     compile 'com.google.firebase:firebase-auth:11.8.0'
     compile 'com.github.andreilisun:circular-layout:1.0'
+
 
 
 

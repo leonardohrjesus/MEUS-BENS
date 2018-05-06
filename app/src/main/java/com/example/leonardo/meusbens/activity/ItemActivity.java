@@ -6,11 +6,13 @@ import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Environment;
 import android.os.ParcelFileDescriptor;
 import android.provider.MediaStore;
 import android.support.annotation.RequiresApi;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Base64;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -30,6 +32,7 @@ import com.example.leonardo.meusbens.model.Item;
 import com.example.leonardo.meusbens.teste.MainActivity;
 
 import java.io.ByteArrayOutputStream;
+import java.io.File;
 import java.io.FileDescriptor;
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -50,7 +53,6 @@ public class ItemActivity extends AppCompatActivity {
     private ImageView imageItem;
     private  byte[] fototipoBD;
 
-    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_item);
@@ -72,6 +74,8 @@ public class ItemActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 obterFoto();
+               // abrirCamera();
+
             }
         });
 
@@ -98,6 +102,15 @@ public class ItemActivity extends AppCompatActivity {
 
     }
 
+    private void abrirCamera() {
+
+        File file = new File(Environment.getExternalStorageDirectory() + "/arquivo.jpg");
+        Uri outputFileUri = Uri.fromFile(file);
+        Intent intent = new Intent(android.provider.MediaStore.ACTION_IMAGE_CAPTURE);
+        intent.putExtra(MediaStore.EXTRA_OUTPUT, outputFileUri);
+        startActivityForResult(intent, 1);
+    }
+
     private void inserirItem() {
         String nome = textoNomeItem.getText().toString();
         double valor = Double.parseDouble(valorItem.getText().toString());
@@ -108,8 +121,16 @@ public class ItemActivity extends AppCompatActivity {
         boolean  resultadoCampoVazios = verificarDadosVazios(nome, valor, subCategoria,foto);
         if (resultadoCampoVazios){
             db.addItens(new Item(categoriaPrincipal,subCategoria,nome,valor,foto));
+            limparCampos();
         }
 
+
+    }
+
+    private void limparCampos() {
+        textoNomeItem.setText("");
+        valorItem.setText("");
+        imageItem.setImageBitmap(null);
 
     }
 
@@ -143,7 +164,7 @@ public class ItemActivity extends AppCompatActivity {
     }
 
 
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
         //Testar processo de retono dos dados
@@ -180,6 +201,35 @@ public class ItemActivity extends AppCompatActivity {
             }
         }
     }
+
+/*    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        System.gc(); // garbage colector
+        if (requestCode == 1) {
+            if (resultCode == RESULT_OK) {
+                try {
+                    BitmapFactory.Options options = new BitmapFactory.Options();
+                    options.inSampleSize = 3;
+                    Bitmap imageBitmap = BitmapFactory.decodeFile(Environment.getExternalStorageDirectory() + "/arquivo.jpg", options);
+
+                    ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+                    boolean validaCompressao = imageBitmap.compress(Bitmap.CompressFormat.JPEG, 50, outputStream);
+                    byte[] fotoBinario = outputStream.toByteArray();
+
+                    String encodedImage = Base64.encodeToString(fotoBinario, Base64.DEFAULT);
+
+                    imageItem.setImageBitmap(imageBitmap); // ImageButton, seto a foto como imagem do botão
+
+                    boolean isImageTaken = true;
+                } catch (Exception e) {
+                    Toast.makeText(this, "Picture Not taken",Toast.LENGTH_LONG).show();e.printStackTrace();
+                }
+            } else if (resultCode == RESULT_CANCELED) {
+                Toast.makeText(this, "Picture was not taken 1 ", Toast.LENGTH_SHORT);
+            } else {
+                Toast.makeText(this, "Picture was not taken 2 ", Toast.LENGTH_SHORT);
+            }
+        }
+    }*/
 
     private void receberActivity() {
         Intent intent = getIntent();
@@ -242,4 +292,6 @@ public class ItemActivity extends AppCompatActivity {
 
         return inSampleSize;
     }
+
+
 }
