@@ -10,6 +10,22 @@ public class Item extends Categoria {
     private double valor;
     private byte[] foto;
 
+
+    public Item() {
+
+    }
+
+    public Item(String nome, double valor){
+        this.descricao = nome;
+        this.valor = valor;
+    }
+
+    public Item(String categoria, String subCategoria,  String nome, double valor) {
+        super(categoria, subCategoria );
+        this.descricao = nome;
+        this.valor = valor;
+    }
+
     public Item(String categoria, String subCategoria,  String nome, double valor, byte[] foto) {
         super(categoria, subCategoria );
         this.descricao = nome;

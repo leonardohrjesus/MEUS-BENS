@@ -5,6 +5,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.database.sqlite.SQLiteStatement;
 
 import com.example.leonardo.meusbens.model.Categoria;
 import com.example.leonardo.meusbens.model.Item;
@@ -80,7 +81,27 @@ public class BancoDados extends SQLiteOpenHelper {
 
     }
 
-   public  void   addItens(Item  item){
+
+    public  void   addItens(Item  item){
+        SQLiteDatabase db = this.getWritableDatabase();
+        String sql = "INSERT INTO "+TABELA_ITENS+" VALUES (NULL,?,?,?,?,?)";
+
+        SQLiteStatement statement = db.compileStatement(sql);
+
+        statement.clearBindings();
+
+        statement.bindString(1,item.getCategoria());
+        statement.bindString(2,item.getSubCategoria());
+        statement.bindDouble(3, item.getValor());
+        statement.bindBlob(4,item.getFoto());
+        statement.bindString(5,item.getDescricao());
+
+        statement.executeInsert();
+
+    }
+
+
+    /*public  void   addItens(Item  item){
         SQLiteDatabase db = this.getWritableDatabase();
 
         ContentValues values = new ContentValues();
@@ -93,9 +114,10 @@ public class BancoDados extends SQLiteOpenHelper {
 
         db.insert(TABELA_ITENS,null,values);
 
+
         db.close();
 
-    }
+    }*/
   /*  void apagarCliente(Cliente cliente){
         SQLiteDatabase db = this.getWritableDatabase();
 
@@ -135,6 +157,36 @@ public class BancoDados extends SQLiteOpenHelper {
         db.update(TABELA_CLIENTE, values, COLUNA_CODIGO + "= ?", new String[] {String.valueOf(cliente.getCodigo())});
 
     }*/
+
+    public List<Item > listarTodoItemDeUmaCategoria(String   subCategoria, String categoriaPrincipal){
+        SQLiteDatabase db = this.getWritableDatabase();
+        List<Item> listaItem = new ArrayList<Item>();
+
+
+        Cursor cursor = db.query(TABELA_ITENS,new String[]{COLUNA_I_SUB_CATEGORIA,COLUNA_I_DESCRICAO,COLUNA_I_VALOR},
+                COLUNA_I_SUB_CATEGORIA + "= ?",  new String[]{String.valueOf(subCategoria) +"and"+
+                        COLUNA_C_CATEGORIA_PRINCIPAL + "= ?" + String.valueOf(categoriaPrincipal)},null,null,null,null);
+
+
+
+          if (cursor.moveToFirst()){
+
+
+
+            do{
+                Item item = new Item();
+                item.setCategoria(categoriaPrincipal);
+                item.setSubCategoria(cursor.getString(0));
+                item.setDescricao(cursor.getString(1));
+                item.setValor(cursor.getDouble(2));
+
+                listaItem.add(item);
+            }while (cursor.moveToNext());
+
+          }
+              return listaItem ;
+    }
+
 
     public List<Categoria> listaTodasCategorias(){
         List<Categoria> listaCategorias = new ArrayList<Categoria>();

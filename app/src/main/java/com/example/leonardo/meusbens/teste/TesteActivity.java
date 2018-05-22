@@ -22,7 +22,7 @@ public class TesteActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.layoutlistexpansivel);
 
-        ExpandableListView elvCompra = (ExpandableListView) findViewById(R.id.elvCompra);
+        ExpandableListView elvCompra = (ExpandableListView) findViewById(R.id.listaexpansivel);
 
         // cria os grupos
         List<String> lstGrupos = new ArrayList<>();

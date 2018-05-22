@@ -10,6 +10,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 
 import com.example.leonardo.meusbens.R;
+import com.example.leonardo.meusbens.activity.ItemActivity;
 import com.example.leonardo.meusbens.activity.ListaCategoriaActivity;
 import com.example.leonardo.meusbens.teste.TesteActivity;
 
