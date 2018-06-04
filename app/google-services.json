@@ -8,50 +8,6 @@
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:418800496300:android:c23d979b0fed9d53",
-        "android_client_info": {
-          "package_name": "br.com.android.leonardohrjesus.meusbens"
-        }
-      },
-      "oauth_client": [
-        {
-          "client_id": "418800496300-nf969fu09q4k4oo486ihtnrcenhv6plo.apps.googleusercontent.com",
-          "client_type": 1,
-          "android_info": {
-            "package_name": "br.com.android.leonardohrjesus.meusbens",
-            "certificate_hash": "dd50f35a7c5cbda6763a1722079fcda770bdea10"
-          }
-        },
-        {
-          "client_id": "418800496300-fp4mdp9dbufdh9b2kcpejapmrtct4ivq.apps.googleusercontent.com",
-          "client_type": 3
-        }
-      ],
-      "api_key": [
-        {
-          "current_key": "AIzaSyAk0ikBFUdG000c8BqA5y0cOIbi2MCpaKk"
-        }
-      ],
-      "services": {
-        "analytics_service": {
-          "status": 1
-        },
-        "appinvite_service": {
-          "status": 2,
-          "other_platform_oauth_client": [
-            {
-              "client_id": "418800496300-fp4mdp9dbufdh9b2kcpejapmrtct4ivq.apps.googleusercontent.com",
-              "client_type": 3
-            }
-          ]
-        },
-        "ads_service": {
-          "status": 2
-        }
-      }
-    },
-    {
-      "client_info": {
         "mobilesdk_app_id": "1:418800496300:android:260a47c613576bef",
         "android_client_info": {
           "package_name": "com.example.leonardo.meusbens"
@@ -59,12 +15,20 @@
       },
       "oauth_client": [
         {
-          "client_id": "418800496300-tft0m0ihtoq6nf3ikt4reng0n61kltnj.apps.googleusercontent.com",
+          "client_id": "418800496300-in7rvc2q7hkt9su1e238u1k94oi9f05h.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
             "package_name": "com.example.leonardo.meusbens",
-            "certificate_hash": "6d35323942757be9a526d478eca13693e0b235d4"
+            "certificate_hash": "fbcb34c14e1dd39e395bf7dcc7586f1bac11ce2f"
           }
+        },
+        {
+          "client_id": "418800496300-bqg08u4kaoiujpa2tv51ethsmi2j0n6m.apps.googleusercontent.com",
+          "client_type": 3
+        },
+        {
+          "client_id": "418800496300-fp4mdp9dbufdh9b2kcpejapmrtct4ivq.apps.googleusercontent.com",
+          "client_type": 3
         },
         {
           "client_id": "418800496300-fp4mdp9dbufdh9b2kcpejapmrtct4ivq.apps.googleusercontent.com",
@@ -84,7 +48,7 @@
           "status": 2,
           "other_platform_oauth_client": [
             {
-              "client_id": "418800496300-fp4mdp9dbufdh9b2kcpejapmrtct4ivq.apps.googleusercontent.com",
+              "client_id": "418800496300-bqg08u4kaoiujpa2tv51ethsmi2j0n6m.apps.googleusercontent.com",
               "client_type": 3
             }
           ]

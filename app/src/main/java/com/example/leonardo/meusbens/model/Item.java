@@ -1,5 +1,8 @@
 package com.example.leonardo.meusbens.model;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * Created by Leonardo on 07/04/2018.
  */
@@ -31,6 +34,15 @@ public class Item extends Categoria {
         this.descricao = nome;
         this.valor = valor;
         this.foto = foto;
+    }
+
+    public List<String> pegarDescricaoValor(){
+        List<String> retorno = new ArrayList<>();
+        retorno.add(getDescricao());
+        retorno.add(String.valueOf(getValor()));
+
+        return  retorno;
+
     }
 
     public String getId() {

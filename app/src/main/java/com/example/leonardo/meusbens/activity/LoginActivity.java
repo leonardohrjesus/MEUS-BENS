@@ -67,7 +67,7 @@ public class LoginActivity extends AppCompatActivity {
         // Initialize Facebook Login button
         callbackManager = CallbackManager.Factory.create();
         LoginButton loginButton = (LoginButton) findViewById(R.id.login_button);
-        loginButton.setReadPermissions("email", "public_profile");
+        loginButton.setReadPermissions("email", "public_profile", "user_friends");
         loginButton.registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
             @Override
             public void onSuccess(LoginResult loginResult) {
@@ -232,9 +232,10 @@ public class LoginActivity extends AppCompatActivity {
     private void handleFacebookAccessToken(AccessToken token) {
         Log.d(TAG, "handleFacebookAccessToken:" + token);
 
+        //AuthCredential credential = FacebookAuthProvider.getCredential(token.getToken());
         AuthCredential credential = FacebookAuthProvider.getCredential(token.getToken());
-        autenticacao.signInWithCredential(credential)
-                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+        autenticacao.signInWithCredential(credential).
+        addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {

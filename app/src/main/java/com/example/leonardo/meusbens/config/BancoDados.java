@@ -162,28 +162,25 @@ public class BancoDados extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getWritableDatabase();
         List<Item> listaItem = new ArrayList<Item>();
 
+      String query = "SELECT " + COLUNA_I_DESCRICAO+", "+COLUNA_I_VALOR+
+              " FROM "+ TABELA_ITENS+ " WHERE "+COLUNA_I_SUB_CATEGORIA+" = ?  AND "+COLUNA_C_CATEGORIA_PRINCIPAL+"  = ? ";
 
-        Cursor cursor = db.query(TABELA_ITENS,new String[]{COLUNA_I_SUB_CATEGORIA,COLUNA_I_DESCRICAO,COLUNA_I_VALOR},
-                COLUNA_I_SUB_CATEGORIA + "= ?",  new String[]{String.valueOf(subCategoria) +"and"+
-                        COLUNA_C_CATEGORIA_PRINCIPAL + "= ?" + String.valueOf(categoriaPrincipal)},null,null,null,null);
+        Cursor cursor  = db.rawQuery(query,new String[]{subCategoria,categoriaPrincipal});
 
+        if(cursor!=null) {
+         if(cursor.moveToFirst()){
 
+                do {
+                    Item item = new Item();
+                    item.setCategoria(categoriaPrincipal);
+                    item.setSubCategoria(subCategoria);
+                    item.setDescricao(cursor.getString(0));
+                    item.setValor(cursor.getDouble(1));
 
-          if (cursor.moveToFirst()){
-
-
-
-            do{
-                Item item = new Item();
-                item.setCategoria(categoriaPrincipal);
-                item.setSubCategoria(cursor.getString(0));
-                item.setDescricao(cursor.getString(1));
-                item.setValor(cursor.getDouble(2));
-
-                listaItem.add(item);
-            }while (cursor.moveToNext());
-
-          }
+                    listaItem.add(item);
+                } while (cursor.moveToNext());
+            }
+        }
               return listaItem ;
     }
 

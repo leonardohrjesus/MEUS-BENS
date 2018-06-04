@@ -50,9 +50,9 @@ public class TesteActivity extends Activity {
         lstItensGrupo.put(lstGrupos.get(2), lstProdutos);
 
         // cria um adaptador (BaseExpandableListAdapter) com os dados acima
-        Adaptador adaptador = new Adaptador(this, lstGrupos, lstItensGrupo);
+       // Adaptador adaptador = new Adaptador(this, lstGrupos, lstItensGrupo);
         // define o apadtador do ExpandableListView
-        elvCompra.setAdapter(adaptador);
+        //elvCompra.setAdapter(adaptador);
     }
 
 }

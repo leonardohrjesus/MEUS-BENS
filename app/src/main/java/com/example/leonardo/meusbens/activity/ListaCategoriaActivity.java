@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -24,7 +25,8 @@ public class ListaCategoriaActivity extends AppCompatActivity {
 
     private Toolbar toolbar;
     private String retornoCategoriaEspecifica;
- //   private ExpandableListView listaExpansivel;
+    private com.example.leonardo.meusbens.teste.Adaptador adaptador;
+    //   private ExpandableListView listaExpansivel;
     BancoDados db = new BancoDados(this);
 
 
@@ -40,7 +42,7 @@ public class ListaCategoriaActivity extends AppCompatActivity {
         toolbar = (Toolbar) findViewById(R.id.toolbalistacadastro);
         setSupportActionBar(toolbar);
 
-      setContentView(R.layout.layoutlistexpansivel);
+       //setContentView(R.layout.layoutlistexpansivel);
 
         RecebeCategoria();
 
@@ -50,55 +52,46 @@ public class ListaCategoriaActivity extends AppCompatActivity {
 
 
         List<Categoria> categorias = db.listaTodasCategorias();
-
         List<String> lstGrupos = new ArrayList<>();
-        int i = 0;
-        int j = 0;
-        List<Item> listaItem = new ArrayList<Item>();
-        HashMap<String, Item> lstItensGrupo = new HashMap<>();
+        HashMap<String, List<Item>> lstItensGrupo = new HashMap<>();
+        int contadorCategoria = 0;
+        int contadorItems = 0;
+        String categoriaAuxiliar="";
+        List<Item> listaItem = null ;
+
 
 
         for (Categoria c : categorias ) {
-            lstGrupos.add(String.valueOf(c.getSubCategoria().indexOf(i)));
-            List<Item> listaItemRetorno = db.listarTodoItemDeUmaCategoria(String.valueOf(c.getSubCategoria()),retornoCategoriaEspecifica);
-            for (Item item: listaItemRetorno){
-                listaItem.add(new Item(item.getDescricao(),item.getValor()));
-                lstItensGrupo.put(lstGrupos.get(i),listaItem.get(j));
-                j++;
+
+            Log.e("Rei android",c.getSubCategoria());
+
+            if (c.getSubCategoria()!= categoriaAuxiliar) {
+                listaItem = new ArrayList<>();
+                categoriaAuxiliar = c.getSubCategoria();
             }
 
-            i++;
+            List<Item> listaItemRetorno = db.listarTodoItemDeUmaCategoria(String.valueOf(c.getSubCategoria()),retornoCategoriaEspecifica);
+
+                for (Item item : listaItemRetorno) {
+                    lstGrupos.add(c.getSubCategoria());
+                    listaItem.add(new Item(item.getDescricao(), item.getValor()));
+                    lstItensGrupo.put(lstGrupos.get(contadorCategoria), listaItem);
+                    adaptador = new com.example.leonardo.meusbens.teste.Adaptador(this, lstGrupos, lstItensGrupo);
+
+
+                    contadorItems++;
+                }
+
+            contadorCategoria++;
         }
 
-        /*lstGrupos.add("Doces");
-        lstGrupos.add("Legumes");
-        lstGrupos.add("Outros");*/
+
+        //adaptador = new com.example.leonardo.meusbens.teste.Adaptador(this, lstGrupos,lstItensGrupo, retornoCategoriaEspecifica);
 
 
 
-        // cria os itens de cada grupo
-       /* List<Produto> lstDoces = new ArrayList<>();
-        lstDoces.add(new Produto("Pacote de bala", 4.5));
-        lstDoces.add(new Produto("Pacote de chiclete", 3.5));
-        lstDoces.add(new Produto("Bolo de chocolate", 50.0));
-
-        List<Produto> lstLegumes = new ArrayList<>();
-        lstLegumes.add(new Produto("Alface", 0.5));
-        lstLegumes.add(new Produto("Tomate", 2.5));
-
-        List<Produto> lstProdutos = new ArrayList<>();
-        lstProdutos.add(new Produto("Chave de Fenda", 7.5));
-
-        // cria o "relacionamento" dos grupos com seus itens
-        HashMap<String, List<Produto>> lstItensGrupo = new HashMap<>();
-        lstItensGrupo.put(lstGrupos.get(0), lstDoces);
-        lstItensGrupo.put(lstGrupos.get(1), lstLegumes);
-        lstItensGrupo.put(lstGrupos.get(2), lstProdutos);*/
-
-        // cria um adaptador (BaseExpandableListAdapter) com os dados acima
-    /*    com.example.leonardo.meusbens.teste.Adaptador adaptador = new com.example.leonardo.meusbens.teste.Adaptador(this, lstGrupos, lstItensGrupo);
         // define o apadtador do ExpandableListView
-        listaExpansivel.setAdapter(adaptador);*/
+        listaExpansivel.setAdapter(adaptador);
 
 
     }
@@ -134,8 +127,8 @@ public class ListaCategoriaActivity extends AppCompatActivity {
     private void irParaItem() {
         Intent intent = new Intent(ListaCategoriaActivity.this,ItemActivity.class);
         intent.putExtra("categoriaEscolhida",retornoCategoriaEspecifica);
-
         startActivity(intent);
+        finish();
 
     }
 

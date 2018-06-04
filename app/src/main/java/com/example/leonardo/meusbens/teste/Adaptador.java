@@ -1,6 +1,7 @@
 package com.example.leonardo.meusbens.teste;
 
 import android.content.Context;
+import android.support.v4.content.ContextCompat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -8,7 +9,9 @@ import android.widget.BaseExpandableListAdapter;
 import android.widget.TextView;
 
 import com.example.leonardo.meusbens.R;
-import com.example.leonardo.meusbens.model.Produto;
+import com.example.leonardo.meusbens.activity.ListaCategoriaActivity;
+import com.example.leonardo.meusbens.config.BancoDados;
+import com.example.leonardo.meusbens.model.Item;
 
 import java.util.HashMap;
 import java.util.List;
@@ -20,15 +23,29 @@ import java.util.List;
 public class Adaptador extends BaseExpandableListAdapter {
 
     private List<String> lstGrupos;
-    private HashMap<String, List<Produto>> lstItensGrupos;
+    private HashMap<String, List<Item>> lstItensGrupos;
     private Context context;
 
-    public Adaptador(Context context, List<String> grupos, HashMap<String, List<Produto>> itensGrupos) {
-        // inicializa as variáveis da classe
+
+    private String subCategoria;
+    private String categoriaPrincipal;
+
+    public Adaptador(Context context, List<String> grupos, HashMap<String, List<Item>> itensGrupos) {
         this.context = context;
-        lstGrupos = grupos;
-        lstItensGrupos = itensGrupos;
+        this.lstItensGrupos = itensGrupos;
+        this.lstGrupos=grupos;
+
     }
+
+    public  Adaptador(Context context, List<String> grupos, HashMap<String, List<Item>> itensGrupos,String categoriaPrincipal){
+        this.context = context;
+        this.lstGrupos=grupos;
+        this.categoriaPrincipal=categoriaPrincipal;
+        this.lstItensGrupos = itensGrupos;
+
+
+    }
+
 
     @Override
     public int getGroupCount() {
@@ -91,6 +108,7 @@ public class Adaptador extends BaseExpandableListAdapter {
         TextView tvQtde = (TextView) convertView.findViewById(R.id.tvQtde);
 
         tvGrupo.setText((String) getGroup(groupPosition));
+
         tvQtde.setText(String.valueOf(getChildrenCount(groupPosition)));
 
         return convertView;
@@ -109,9 +127,12 @@ public class Adaptador extends BaseExpandableListAdapter {
         TextView tvItem = (TextView) convertView.findViewById(R.id.tvItem);
         TextView tvValor = (TextView) convertView.findViewById(R.id.tvValor);
 
-        Produto produto = (Produto) getChild(groupPosition, childPosition);
-        tvItem.setText(produto.getNome());
+
+        Item produto = (Item) getChild(groupPosition, childPosition);
+        tvItem.setText(produto.getDescricao());
         tvValor.setText(String.valueOf(produto.getValor()));
+
+
 
         return convertView;
     }

@@ -44,10 +44,12 @@ public class AdicionarSubCategoriaFragment  extends DialogFragment implements Pa
                 }else{
                     db.addCategoria(new Categoria(categoriaPrincipal,categoriaDetalhada));
                     subCategoria.setText("");
-                    Intent intent = new Intent(getActivity(), ItemActivity.class);
+                    /*Intent intent = new Intent(getActivity(), ItemActivity.class);
                     intent.putExtra("categoriaEscolhida",categoriaPrincipal);
-                    startActivity(intent);
+                    startActivity(intent);*/
                     Toast.makeText(getContext(),"Categoria Incluída com Sucesso!",Toast.LENGTH_SHORT).show();
+
+
                 }
             }
         });

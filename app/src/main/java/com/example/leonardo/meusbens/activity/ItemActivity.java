@@ -4,15 +4,13 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
-import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.os.ParcelFileDescriptor;
 import android.provider.MediaStore;
-import android.support.annotation.RequiresApi;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.Base64;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -29,12 +27,10 @@ import com.example.leonardo.meusbens.config.BancoDados;
 import com.example.leonardo.meusbens.fragments.AdicionarSubCategoriaFragment;
 import com.example.leonardo.meusbens.model.Categoria;
 import com.example.leonardo.meusbens.model.Item;
-import com.example.leonardo.meusbens.teste.MainActivity;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileDescriptor;
-import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -74,10 +70,11 @@ public class ItemActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 obterFoto();
-               // abrirCamera();
+                // abrirCamera();
 
             }
         });
+
 
 
         /**************************************************************************
@@ -86,6 +83,14 @@ public class ItemActivity extends AppCompatActivity {
          **************************************************************************/
         toolbarPrincipal = findViewById(R.id.toolbaritem);
         setSupportActionBar(toolbarPrincipal);
+
+
+        listaCategoria();
+
+
+    }
+
+    private void listaCategoria() {
 
         arraylist = new ArrayList<String>();
 
@@ -99,7 +104,6 @@ public class ItemActivity extends AppCompatActivity {
             arraylist.add(c.getSubCategoria());
             adapter.notifyDataSetChanged();
         }
-
     }
 
     private void abrirCamera() {
@@ -164,7 +168,7 @@ public class ItemActivity extends AppCompatActivity {
     }
 
 
-     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
         //Testar processo de retono dos dados
@@ -192,7 +196,7 @@ public class ItemActivity extends AppCompatActivity {
                 bitmap.compress(Bitmap.CompressFormat.PNG, 20, stream);
 
                 //Cria um array de bytes da imagem
-                 fototipoBD = stream.toByteArray();
+                fototipoBD = stream.toByteArray();
 
                 imageItem.setImageBitmap(bitmap);
 
@@ -259,6 +263,9 @@ public class ItemActivity extends AppCompatActivity {
         AdicionarSubCategoriaFragment adicionarSubCategoriaFragment = new AdicionarSubCategoriaFragment();
         adicionarSubCategoriaFragment.passaInformacao(getRetornoCategoriaEspecifica());
         adicionarSubCategoriaFragment.show(fm, "Dialog Fragment");
+        listaCategoria();
+
+
     }
 
     public String getRetornoCategoriaEspecifica() {
@@ -291,6 +298,48 @@ public class ItemActivity extends AppCompatActivity {
         }
 
         return inSampleSize;
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        Log.e("Ciclo", "Activity: Metodo onStart() chamado");
+    }
+
+    @Override
+    protected void onRestart() {
+        super.onRestart();
+        Log.e("Ciclo", "Activity: Metodo onRestart() chamado");
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        Log.e("Ciclo", "Activity: Metodo onResume() chamado");
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        Log.e("Ciclo", "Activity: Metodo onPause() chamado");
+    }
+
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        Log.e("Ciclo", "Activity: Metodo onSavedInstanceState() chamado");
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        Log.e("Ciclo", "Activity: Metodo onStop() chamado");
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        Log.e("Ciclo", "Activity: Metodo onDestroy() chamado");
     }
 
 

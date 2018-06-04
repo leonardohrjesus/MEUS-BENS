@@ -39,6 +39,7 @@ import java.util.List;
         @Override
         public int getChildrenCount(int groupPosition) {
             // retorna a quantidade de itens de um grupo
+
             return lstItensGrupos.get(getGroup(groupPosition)).size();
         }
 
