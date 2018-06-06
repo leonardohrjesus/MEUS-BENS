@@ -42,7 +42,7 @@ public class ListaCategoriaActivity extends AppCompatActivity {
         toolbar = (Toolbar) findViewById(R.id.toolbalistacadastro);
         setSupportActionBar(toolbar);
 
-       //setContentView(R.layout.layoutlistexpansivel);
+        //setContentView(R.layout.layoutlistexpansivel);
 
         RecebeCategoria();
 
@@ -65,25 +65,36 @@ public class ListaCategoriaActivity extends AppCompatActivity {
 
             Log.e("Rei android",c.getSubCategoria());
 
+/*
             if (c.getSubCategoria()!= categoriaAuxiliar) {
-                listaItem = new ArrayList<>();
-                categoriaAuxiliar = c.getSubCategoria();
             }
+*/
 
             List<Item> listaItemRetorno = db.listarTodoItemDeUmaCategoria(String.valueOf(c.getSubCategoria()),retornoCategoriaEspecifica);
 
-                for (Item item : listaItemRetorno) {
+
+            for (Item item : listaItemRetorno) {
+
+                if(categoriaAuxiliar != c.getSubCategoria()){
                     lstGrupos.add(c.getSubCategoria());
-                    listaItem.add(new Item(item.getDescricao(), item.getValor()));
-                    lstItensGrupo.put(lstGrupos.get(contadorCategoria), listaItem);
-                    adaptador = new com.example.leonardo.meusbens.teste.Adaptador(this, lstGrupos, lstItensGrupo);
-
-
-                    contadorItems++;
+                    listaItem = new ArrayList<>();
+                   categoriaAuxiliar = c.getSubCategoria();
                 }
 
-            contadorCategoria++;
-        }
+                listaItem.add(new Item(item.getDescricao(), item.getValor()));
+                lstItensGrupo.put(lstGrupos.get(contadorCategoria), listaItem);
+
+                contadorItems++;
+            }
+
+                contadorCategoria++;
+
+
+            }
+
+
+        adaptador = new com.example.leonardo.meusbens.teste.Adaptador(this, lstGrupos, lstItensGrupo);
+
 
 
         //adaptador = new com.example.leonardo.meusbens.teste.Adaptador(this, lstGrupos,lstItensGrupo, retornoCategoriaEspecifica);
