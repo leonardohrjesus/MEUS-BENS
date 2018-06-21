@@ -41,15 +41,9 @@ public class ListaCategoriaActivity extends AppCompatActivity {
          **************************************************************************/
         toolbar = (Toolbar) findViewById(R.id.toolbalistacadastro);
         setSupportActionBar(toolbar);
-
         //setContentView(R.layout.layoutlistexpansivel);
-
         RecebeCategoria();
-
-
-
         ExpandableListView listaExpansivel= (ExpandableListView) findViewById(R.id.listaexpansivel);
-
 
         List<Categoria> categorias = db.listaTodasCategorias();
         List<String> lstGrupos = new ArrayList<>();
@@ -58,52 +52,31 @@ public class ListaCategoriaActivity extends AppCompatActivity {
         int contadorItems = 0;
         String categoriaAuxiliar="";
         List<Item> listaItem = null ;
-
-
-
         for (Categoria c : categorias ) {
-
             Log.e("Rei android",c.getSubCategoria());
-
 /*
             if (c.getSubCategoria()!= categoriaAuxiliar) {
             }
 */
-
             List<Item> listaItemRetorno = db.listarTodoItemDeUmaCategoria(String.valueOf(c.getSubCategoria()),retornoCategoriaEspecifica);
-
-
             for (Item item : listaItemRetorno) {
-
                 if(categoriaAuxiliar != c.getSubCategoria()){
                     lstGrupos.add(c.getSubCategoria());
                     listaItem = new ArrayList<>();
-                   categoriaAuxiliar = c.getSubCategoria();
+                    categoriaAuxiliar = c.getSubCategoria();
                 }
-
                 listaItem.add(new Item(item.getDescricao(), item.getValor()));
                 lstItensGrupo.put(lstGrupos.get(contadorCategoria), listaItem);
-
                 contadorItems++;
             }
-
-                contadorCategoria++;
-
-
-            }
-
+            contadorCategoria++;
+        }
 
         adaptador = new com.example.leonardo.meusbens.teste.Adaptador(this, lstGrupos, lstItensGrupo);
-
-
-
         //adaptador = new com.example.leonardo.meusbens.teste.Adaptador(this, lstGrupos,lstItensGrupo, retornoCategoriaEspecifica);
-
-
 
         // define o apadtador do ExpandableListView
         listaExpansivel.setAdapter(adaptador);
-
 
     }
 
@@ -128,7 +101,6 @@ public class ListaCategoriaActivity extends AppCompatActivity {
             case R.id.action_adicionar:
                 irParaItem();
                 return  true;
-
             default:
                 return super.onOptionsItemSelected(item);
         }
@@ -139,9 +111,7 @@ public class ListaCategoriaActivity extends AppCompatActivity {
         Intent intent = new Intent(ListaCategoriaActivity.this,ItemActivity.class);
         intent.putExtra("categoriaEscolhida",retornoCategoriaEspecifica);
         startActivity(intent);
-        finish();
 
     }
-
 
 }

@@ -28,9 +28,7 @@ public class CadastroActivity extends AppCompatActivity {
     private EditText senha;
     private Button botaoCadastrar;
     private Usuario usuario;
-
     private FirebaseAuth autenticacao;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,8 +54,6 @@ public class CadastroActivity extends AppCompatActivity {
         });
     }
 
-
-
     private void cadastrarUsuario(){
 
         autenticacao = ConfiguracaoFirebase.getFirebaseAutenticacao();
@@ -71,9 +67,7 @@ public class CadastroActivity extends AppCompatActivity {
                 if( task.isSuccessful() ){
 
                     Toast.makeText(CadastroActivity.this, "Sucesso ao cadastrar usuário", Toast.LENGTH_LONG ).show();
-                    //String uidgerado =
-                    //Parei aqui tenho q pegar uid nao lembro
-                    //String identificadorUsuario =  usuario.getId();
+
                     String identificadorUsuario =   autenticacao.getUid();
                     usuario.setId( identificadorUsuario );
                     usuario.salvar();
@@ -100,7 +94,6 @@ public class CadastroActivity extends AppCompatActivity {
 
                     Toast.makeText(CadastroActivity.this, "Erro ao cadastrar usuário: " + erro, Toast.LENGTH_LONG ).show();
                 }
-
             }
         });
 

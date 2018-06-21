@@ -1,14 +1,10 @@
 package com.example.leonardo.meusbens.activity;
 
 import android.content.Intent;
-import android.content.pm.PackageInfo;
-import android.content.pm.PackageManager;
-import android.content.pm.Signature;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Base64;
 import android.util.Log;
 import android.util.TypedValue;
 import android.view.View;
@@ -38,15 +34,12 @@ import com.google.firebase.auth.AuthCredential;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FacebookAuthProvider;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
-
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
 
 public class LoginActivity extends AppCompatActivity {
 
-    private LoginButton loginButton;
+    private LoginButton loginButtonFacebook;
+    private SignInButton loginButtonGoogle;
     private TextView esqueceSenha;
     private CallbackManager callbackManager;
     private TextView irparacadastro ;
@@ -62,13 +55,59 @@ public class LoginActivity extends AppCompatActivity {
 
         verificarUsuarioLogado();
 
+        loginButtonFacebook = (LoginButton) findViewById(R.id.buttonFacebook);
+        loginButtonGoogle = findViewById(R.id.buttonGoogle);
         esqueceSenha = (TextView) findViewById(R.id.id_textView_esquece_sua_senha);
+        irparacadastro = (TextView) findViewById(R.id.idtextviewcadastro);
 
+        loginComFacebook();
+        loginComGoogle();
+
+        irparacadastro.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                //ir para tela de login
+                Intent intent = new Intent(LoginActivity.this,CadastroActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        loginButtonGoogle.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (view.getId() == R.id.buttonGoogle){
+                    signIn();
+                }
+            }
+        });
+
+        esqueceSenha.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                createAndDisplayDialog();
+            }
+        });
+
+    }
+
+    private void loginComGoogle() {
+        GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+                .requestIdToken(getString(R.string.default_web_client_id))
+                .requestEmail()
+                .build();
+
+        mGoogleSignInClient = GoogleSignIn. getClient ( this , gso );
+
+        loginButtonGoogle.setSize(SignInButton.SIZE_STANDARD);
+
+    }
+
+    private void loginComFacebook() {
         // Initialize Facebook Login button
         callbackManager = CallbackManager.Factory.create();
-        LoginButton loginButton = (LoginButton) findViewById(R.id.login_button);
-        loginButton.setReadPermissions("email", "public_profile", "user_friends");
-        loginButton.registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
+        loginButtonFacebook.setReadPermissions("email", "public_profile", "user_friends");
+        loginButtonFacebook.registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
             @Override
             public void onSuccess(LoginResult loginResult) {
                 Log.d("", "facebook:onSuccess:" + loginResult);
@@ -86,47 +125,6 @@ public class LoginActivity extends AppCompatActivity {
                 Toast.makeText(LoginActivity.this, "Erro ao realizar login com  Facebook"+ error.getMessage(),
                         Toast.LENGTH_SHORT).show();
 
-            }
-        });
-
-        //LOGIN GOOGLE
-        GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-                .requestIdToken(getString(R.string.default_web_client_id))
-                .requestEmail()
-                .build();
-
-        mGoogleSignInClient = GoogleSignIn. getClient ( this , gso );
-
-
-        irparacadastro = (TextView) findViewById(R.id.idtextviewcadastro);
-
-        SignInButton signInButton = findViewById(R.id.sign_in_button);
-        signInButton.setSize(SignInButton.SIZE_STANDARD);
-
-        irparacadastro.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-                //ir para tela de login
-                Intent intent = new Intent(LoginActivity.this,CadastroActivity.class);
-                startActivity(intent);
-                finish();
-            }
-        });
-
-        findViewById(R.id.sign_in_button).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if (view.getId() == R.id.sign_in_button){
-                    signIn();
-                }
-            }
-        });
-
-        esqueceSenha.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                createAndDisplayDialog();
             }
         });
 
@@ -170,7 +168,6 @@ public class LoginActivity extends AppCompatActivity {
     private void signIn() {
         Intent signInIntent = mGoogleSignInClient.getSignInIntent();
         startActivityForResult(signInIntent, RC_SIGN_IN);
-
     }
 
 
@@ -209,8 +206,6 @@ public class LoginActivity extends AppCompatActivity {
                             Toast.makeText(LoginActivity.this, "Erro ao realizar login com  Google."+task.getException(),
                                     Toast.LENGTH_SHORT).show();
                         }
-
-
                     }
                 });
     }
@@ -231,7 +226,6 @@ public class LoginActivity extends AppCompatActivity {
     //pegar as credenciais
     private void handleFacebookAccessToken(AccessToken token) {
         Log.d(TAG, "handleFacebookAccessToken:" + token);
-
         //AuthCredential credential = FacebookAuthProvider.getCredential(token.getToken());
         AuthCredential credential = FacebookAuthProvider.getCredential(token.getToken());
         autenticacao.signInWithCredential(credential).
@@ -252,6 +246,5 @@ public class LoginActivity extends AppCompatActivity {
                     }
                 });
     }
-
 
 }

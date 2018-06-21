@@ -1,9 +1,11 @@
 package com.example.leonardo.meusbens.activity;
 
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Environment;
 import android.os.ParcelFileDescriptor;
@@ -27,6 +29,7 @@ import com.example.leonardo.meusbens.config.BancoDados;
 import com.example.leonardo.meusbens.fragments.AdicionarSubCategoriaFragment;
 import com.example.leonardo.meusbens.model.Categoria;
 import com.example.leonardo.meusbens.model.Item;
+import com.example.leonardo.meusbens.util.PassadorDeInformacao;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
@@ -35,7 +38,8 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ItemActivity extends AppCompatActivity {
+public class ItemActivity extends AppCompatActivity  {
+
     private Toolbar toolbarPrincipal;
     private Spinner categoria;
     private Button botoaOk;
@@ -49,7 +53,7 @@ public class ItemActivity extends AppCompatActivity {
     private ImageView imageItem;
     private  byte[] fototipoBD;
 
-    protected void onCreate(Bundle savedInstanceState) {
+    public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_item);
         receberActivity();
@@ -58,6 +62,9 @@ public class ItemActivity extends AppCompatActivity {
         botoaOk = (Button) findViewById(R.id.buttonConfirmar);
         textoNomeItem = (EditText) findViewById(R.id.editTextNome);
         valorItem = (EditText) findViewById(R.id.editTextvalor);
+        categoria = (Spinner) findViewById(R.id.spinnerCategoria);
+
+
 
         botoaOk.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -76,6 +83,11 @@ public class ItemActivity extends AppCompatActivity {
         });
 
 
+        listaCategoria();
+
+
+
+
 
         /**************************************************************************
          * configurar Toolbar
@@ -85,26 +97,62 @@ public class ItemActivity extends AppCompatActivity {
         setSupportActionBar(toolbarPrincipal);
 
 
-        listaCategoria();
 
 
     }
 
-    private void listaCategoria() {
 
-        arraylist = new ArrayList<String>();
+
+
+
+
+
+    public void listaCategoria(Context context) {
+        db = new BancoDados(context);
+
+
 
         List<Categoria> categorias = db.listaTodasCategorias();
 
-        adapter = new ArrayAdapter<String>(ItemActivity.this,android.R.layout.simple_list_item_1, arraylist);
+        /*if (arraylist  == null){
+            arraylist = new ArrayList<String>();
+        }
 
-        categoria = (Spinner) findViewById(R.id.spinnerCategoria);
-        categoria.setAdapter(adapter);
+        if (adapter == null){
+            adapter = new ArrayAdapter<String>(context,android.R.layout.simple_list_item_1, arraylist);
+        }
+        if (categoria == null)
+            categoria.setAdapter(adapter);*/
+
+
+
+        for (Categoria c : categorias){
+            arraylist.add(c.getSubCategoria());
+
+
+        }
+        adapter.notifyDataSetChanged();
+
+    }
+
+    public void listaCategoria() {
+
+        List<Categoria> categorias = db.listaTodasCategorias();
+        if (arraylist  == null){
+            arraylist = new ArrayList<String>();
+        }
+
+        if (adapter == null){
+            adapter = new ArrayAdapter<String>(ItemActivity.this,android.R.layout.simple_list_item_1, arraylist);
+            categoria.setAdapter(adapter);
+        }
+
         for (Categoria c : categorias){
             arraylist.add(c.getSubCategoria());
             adapter.notifyDataSetChanged();
         }
     }
+
 
     private void abrirCamera() {
 
@@ -127,7 +175,6 @@ public class ItemActivity extends AppCompatActivity {
             db.addItens(new Item(categoriaPrincipal,subCategoria,nome,valor,foto));
             limparCampos();
         }
-
 
     }
 
@@ -253,6 +300,13 @@ public class ItemActivity extends AppCompatActivity {
         switch (item.getItemId()) {
             case R.id.action_subcategoria:
                 abrirCaixaAdicionarCategoria();
+
+
+
+         /*       Processo processo= new Processo();
+                //mando executar o processo                processo.execute("Executando");*/
+
+
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
@@ -267,6 +321,9 @@ public class ItemActivity extends AppCompatActivity {
 
 
     }
+
+
+
 
     public String getRetornoCategoriaEspecifica() {
         return retornoCategoriaEspecifica;
@@ -340,6 +397,30 @@ public class ItemActivity extends AppCompatActivity {
     protected void onDestroy() {
         super.onDestroy();
         Log.e("Ciclo", "Activity: Metodo onDestroy() chamado");
+    }
+
+
+    private class Processo extends AsyncTask<String, String, String> {
+        //Método que é responsável por executar a sua tarefa que vai demorar um pouco
+        @Override
+        protected String doInBackground(String... params) {
+            //aqui eu faço um while so para demonstração, mais você retira esse codigo e coloca o seu.
+            /*int i = 0;
+            while (i < 1000) {
+                //aqui ele vai "falar" para  metodo onProgressUpdate para atualizar a tela com a sua string
+                publishProgress("Processo em: " + i);
+                i++;
+            }*/
+            Log.i("Rei android","doInBackground");
+            return null;
+        }
+
+        @Override
+        protected void onProgressUpdate(String... values) {
+            //Faz o setText no seu textView da tela
+
+            Log.i("Rei android","onProgressUpdate");
+        }
     }
 
 

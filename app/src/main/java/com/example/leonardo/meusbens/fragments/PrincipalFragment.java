@@ -19,41 +19,16 @@ import com.google.firebase.auth.FirebaseAuth;
 
 public class PrincipalFragment extends Fragment {
 
-    private  Button botaoTesteMainActivity;
 
     public PrincipalFragment() {
     }
-
-
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layoutListExpansivel for this fragment
-
-
         View view = inflater.inflate(R.layout.fragment_principal,container,false);
-
-        botaoTesteMainActivity  = (Button) view.findViewById(R.id.botaoTesteMainAcivity);
-
-        botaoTesteMainActivity.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(getContext(), MainActivity.class);
-                startActivity(intent);
-            }
-        });
-
-        //Montar listView e adapter
-
-
-
         return view;
-
     }
-
-
-
-
 
 }

@@ -203,7 +203,9 @@ public class BancoDados extends SQLiteOpenHelper {
 
             }while (c.moveToNext());
         }
+        close();
         return listaCategorias;
+
     }
 
 }

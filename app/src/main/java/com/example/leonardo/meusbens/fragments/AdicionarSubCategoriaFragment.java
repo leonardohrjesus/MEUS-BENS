@@ -1,6 +1,7 @@
 package com.example.leonardo.meusbens.fragments;
 
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
 import android.util.Log;
@@ -25,6 +26,7 @@ public class AdicionarSubCategoriaFragment  extends DialogFragment implements Pa
     private EditText subCategoria;
     private Button botaoAdicionar;
 
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -48,15 +50,25 @@ public class AdicionarSubCategoriaFragment  extends DialogFragment implements Pa
                     intent.putExtra("categoriaEscolhida",categoriaPrincipal);
                     startActivity(intent);*/
                     Toast.makeText(getContext(),"Categoria Incluída com Sucesso!",Toast.LENGTH_SHORT).show();
+                    Intent intent = new Intent(getActivity(),ItemActivity.class);
+                    intent.putExtra("categoriaEscolhida",categoriaPrincipal);
+                    startActivity(intent);
+                    getActivity().onBackPressed();
 
 
                 }
-            }
-        });
 
+
+            }
+
+        });
 
         return rootView;
     }
+
+
+
+
 
     @Override
     public  void passaInformacao(String informacao) {
@@ -68,4 +80,6 @@ public class AdicionarSubCategoriaFragment  extends DialogFragment implements Pa
     public void setCategoriaPrincipal(String categoriaPrincipal) {
         this.categoriaPrincipal = categoriaPrincipal;
     }
+
+
 }
