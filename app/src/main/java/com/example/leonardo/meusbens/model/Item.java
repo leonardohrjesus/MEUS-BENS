@@ -1,5 +1,6 @@
 package com.example.leonardo.meusbens.model;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -7,7 +8,7 @@ import java.util.List;
  * Created by Leonardo on 07/04/2018.
  */
 
-public class Item extends Categoria {
+public class Item extends Categoria implements Serializable {
     private String id;
     private String descricao;
     private double valor;

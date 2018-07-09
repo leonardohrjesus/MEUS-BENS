@@ -1,7 +1,7 @@
 apply plugin: 'com.android.application'
 
 android {
-    publishNonDefault  true //this line
+    publishNonDefault true //this line
 
     compileSdkVersion 26
     defaultConfig {
@@ -48,11 +48,10 @@ dependencies {
     compile 'com.github.andreilisun:circular-layout:1.0'
 
 
-
-
 }
 
 apply plugin: 'com.google.gms.google-services'
+
 
 
 

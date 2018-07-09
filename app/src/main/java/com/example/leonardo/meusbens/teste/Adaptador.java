@@ -71,6 +71,16 @@ public class Adaptador extends BaseExpandableListAdapter {
         return lstItensGrupos.get(getGroup(groupPosition)).get(childPosition);
     }
 
+    public Item getFilho(int groupPosition, int childPosition) {
+        // retorna um item do grupo
+        return lstItensGrupos.get(getGroup(groupPosition)).get(childPosition);
+    }
+
+    /*public  String getFilhoEspecifico( int childPosition){
+
+        return String.valueOf(lstItensGrupos.get(childPosition));
+    }*/
+
     @Override
     public long getGroupId(int groupPosition) {
         // retorna o id do grupo, porém como nesse exemplo

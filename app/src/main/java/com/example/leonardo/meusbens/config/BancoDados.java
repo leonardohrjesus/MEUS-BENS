@@ -56,7 +56,7 @@ public class BancoDados extends SQLiteOpenHelper {
                 + COLUNA_I_ID+ " INTEGER PRIMARY KEY," + COLUNA_I_CATEGORIA_PRINCIPAL +" TEXT ,"
                 + COLUNA_I_SUB_CATEGORIA +" TEXT ,"
                 + COLUNA_I_VALOR +" REAL ,"
-                + COLUNA_I_FOTO + "BLOB ,"
+                + COLUNA_I_FOTO + " BLOB ,"
                 + COLUNA_I_DESCRICAO + " TEXT )";
         db.execSQL(QUERY_COLUNA1);
 
@@ -165,6 +165,8 @@ public class BancoDados extends SQLiteOpenHelper {
       String query = "SELECT " + COLUNA_I_DESCRICAO+", "+COLUNA_I_VALOR+
               " FROM "+ TABELA_ITENS+ " WHERE "+COLUNA_I_SUB_CATEGORIA+" = ?  AND "+COLUNA_C_CATEGORIA_PRINCIPAL+"  = ? ";
 
+
+
         Cursor cursor  = db.rawQuery(query,new String[]{subCategoria,categoriaPrincipal});
 
         if(cursor!=null) {
@@ -182,6 +184,36 @@ public class BancoDados extends SQLiteOpenHelper {
             }
         }
               return listaItem ;
+    }
+
+    public Item retornaItem(String categoriaPrincipal,String subCategoria,String descricao,double valor){
+
+        SQLiteDatabase db = this.getWritableDatabase();
+
+
+        String query = "SELECT " + COLUNA_I_DESCRICAO+", "+COLUNA_I_VALOR+", "+COLUNA_I_SUB_CATEGORIA+", "+COLUNA_I_FOTO+
+                " FROM "+ TABELA_ITENS+ " WHERE "+COLUNA_I_CATEGORIA_PRINCIPAL+" = ?  AND "+COLUNA_I_SUB_CATEGORIA+"  = ? AND "+COLUNA_I_DESCRICAO+" = ? ";
+        /*AND "
+                +COLUNA_I_VALOR+" = ?" ;*/
+
+        Cursor cursor  = db.rawQuery(query,new String[]{categoriaPrincipal,subCategoria,descricao});
+        Item item = new Item();
+        if(cursor!=null) {
+            if(cursor.moveToFirst()){
+
+                do {
+
+                    item.setDescricao(cursor.getString(0));
+                    item.setValor(cursor.getDouble(1));
+                    item.setSubCategoria(cursor.getString(2));
+                    item.setFoto(cursor.getBlob(3));
+
+                } while (cursor.moveToNext());
+            }
+        }
+        return item ;
+
+
     }
 
 

@@ -30,6 +30,7 @@ import com.example.leonardo.meusbens.fragments.AdicionarSubCategoriaFragment;
 import com.example.leonardo.meusbens.model.Categoria;
 import com.example.leonardo.meusbens.model.Item;
 import com.example.leonardo.meusbens.util.PassadorDeInformacao;
+import com.example.leonardo.meusbens.util.PassadorItem;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
@@ -38,34 +39,38 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ItemActivity extends AppCompatActivity  {
+public class ItemActivity extends AppCompatActivity{
 
     private Toolbar toolbarPrincipal;
     private Spinner categoria;
     private Button botoaOk;
     private EditText textoNomeItem;
     private EditText valorItem;
-    android.support.v4.app.FragmentManager fm = getSupportFragmentManager();
+    private android.support.v4.app.FragmentManager fm = getSupportFragmentManager();
     private String retornoCategoriaEspecifica;
-    BancoDados db = new BancoDados(this);
-    ArrayAdapter<String> adapter;
-    ArrayList<String> arraylist;
+    private BancoDados db = new BancoDados(this);
+    private ArrayAdapter<String> adapter;
+    private ArrayList<String> arraylist;
     private ImageView imageItem;
     private  byte[] fototipoBD;
+
+
+
+
 
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_item);
         receberActivity();
 
+
+
+
         imageItem = (ImageView) findViewById(R.id.imageViewItem);
         botoaOk = (Button) findViewById(R.id.buttonConfirmar);
         textoNomeItem = (EditText) findViewById(R.id.editTextNome);
         valorItem = (EditText) findViewById(R.id.editTextvalor);
         categoria = (Spinner) findViewById(R.id.spinnerCategoria);
-
-
-
         botoaOk.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -82,12 +87,7 @@ public class ItemActivity extends AppCompatActivity  {
             }
         });
 
-
         listaCategoria();
-
-
-
-
 
         /**************************************************************************
          * configurar Toolbar
@@ -96,44 +96,8 @@ public class ItemActivity extends AppCompatActivity  {
         toolbarPrincipal = findViewById(R.id.toolbaritem);
         setSupportActionBar(toolbarPrincipal);
 
-
-
-
     }
 
-
-
-
-
-
-
-    public void listaCategoria(Context context) {
-        db = new BancoDados(context);
-
-
-
-        List<Categoria> categorias = db.listaTodasCategorias();
-
-        /*if (arraylist  == null){
-            arraylist = new ArrayList<String>();
-        }
-
-        if (adapter == null){
-            adapter = new ArrayAdapter<String>(context,android.R.layout.simple_list_item_1, arraylist);
-        }
-        if (categoria == null)
-            categoria.setAdapter(adapter);*/
-
-
-
-        for (Categoria c : categorias){
-            arraylist.add(c.getSubCategoria());
-
-
-        }
-        adapter.notifyDataSetChanged();
-
-    }
 
     public void listaCategoria() {
 
@@ -284,8 +248,10 @@ public class ItemActivity extends AppCompatActivity  {
 
     private void receberActivity() {
         Intent intent = getIntent();
+        String categoriaEscolhida =   intent.getStringExtra("categoriaEscolhida");
         setRetornoCategoriaEspecifica(intent.getStringExtra("categoriaEscolhida"));
         Toast.makeText(this, retornoCategoriaEspecifica, Toast.LENGTH_LONG).show();
+
     }
 
     @Override
@@ -301,12 +267,6 @@ public class ItemActivity extends AppCompatActivity  {
             case R.id.action_subcategoria:
                 abrirCaixaAdicionarCategoria();
 
-
-
-         /*       Processo processo= new Processo();
-                //mando executar o processo                processo.execute("Executando");*/
-
-
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
@@ -319,11 +279,7 @@ public class ItemActivity extends AppCompatActivity  {
         adicionarSubCategoriaFragment.show(fm, "Dialog Fragment");
         listaCategoria();
 
-
     }
-
-
-
 
     public String getRetornoCategoriaEspecifica() {
         return retornoCategoriaEspecifica;
@@ -398,6 +354,10 @@ public class ItemActivity extends AppCompatActivity  {
         super.onDestroy();
         Log.e("Ciclo", "Activity: Metodo onDestroy() chamado");
     }
+
+
+
+
 
 
     private class Processo extends AsyncTask<String, String, String> {
