@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.media.Image;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -53,6 +54,7 @@ public class ItemActivity extends AppCompatActivity{
     private ArrayList<String> arraylist;
     private ImageView imageItem;
     private  byte[] fototipoBD;
+    private  Bitmap bitmap = null;
 
 
 
@@ -129,14 +131,17 @@ public class ItemActivity extends AppCompatActivity{
 
     private void inserirItem() {
         String nome = textoNomeItem.getText().toString();
-        double valor = Double.parseDouble(valorItem.getText().toString());
+        String valor = valorItem.getText().toString();
         String subCategoria = categoria.getSelectedItem().toString();
         String categoriaPrincipal = retornoCategoriaEspecifica;
+
+
         byte[] foto = fototipoBD;
 
-        boolean  resultadoCampoVazios = verificarDadosVazios(nome, valor, subCategoria,foto);
+
+        boolean  resultadoCampoVazios = verificarDadosVazios(nome, valorItem.getText().toString(), subCategoria,bitmap);
         if (resultadoCampoVazios){
-            db.addItens(new Item(categoriaPrincipal,subCategoria,nome,valor,foto));
+            db.addItens(new Item(categoriaPrincipal,subCategoria,nome,Double.parseDouble(valor),foto));
             limparCampos();
         }
 
@@ -149,12 +154,12 @@ public class ItemActivity extends AppCompatActivity{
 
     }
 
-    private boolean verificarDadosVazios(String nome, double valor, String subCategoria, byte[] foto) {
+    private boolean verificarDadosVazios(String nome, String valor, String subCategoria,  Bitmap foto) {
         if (nome.isEmpty()){
             textoNomeItem.setError("Campo Obrigatório");
-            return  false;
+            return  false;  
         }
-        if (valor <= 0  ){
+        if (valor.isEmpty()  ){
             valorItem.setError("Campo Obrigatório");
             return  false;
         }
@@ -164,9 +169,13 @@ public class ItemActivity extends AppCompatActivity{
             return  false;
 
         }
-        if (foto.equals(null)){
-            Toast.makeText(ItemActivity.this,"Por favor escolha uma foto! ",Toast.LENGTH_SHORT).show();
+
+
+        if ( null ==  foto){
+            Toast.makeText(ItemActivity.this,"Por favor escolha uma foto! ",Toast.LENGTH_LONG  ).show();
             return  false;
+        }else {
+            foto = null;
         }
 
         return  true;
@@ -195,7 +204,7 @@ public class ItemActivity extends AppCompatActivity{
                 BitmapFactory.Options options = new BitmapFactory.Options();
 
                 options.inJustDecodeBounds = true;
-                Bitmap bitmap = BitmapFactory.decodeFileDescriptor(fileDescriptor, null, options);
+                bitmap = BitmapFactory.decodeFileDescriptor(fileDescriptor, null, options);
                 options.inSampleSize = calculateInSampleSize(options, 300, 300);
                 options.inJustDecodeBounds = false;
                 bitmap = BitmapFactory.decodeFileDescriptor(fileDescriptor, null, options);
@@ -210,6 +219,7 @@ public class ItemActivity extends AppCompatActivity{
                 fototipoBD = stream.toByteArray();
 
                 imageItem.setImageBitmap(bitmap);
+
 
             } catch (IOException e) {
                 e.printStackTrace();
@@ -313,47 +323,7 @@ public class ItemActivity extends AppCompatActivity{
         return inSampleSize;
     }
 
-    @Override
-    protected void onStart() {
-        super.onStart();
-        Log.e("Ciclo", "Activity: Metodo onStart() chamado");
-    }
 
-    @Override
-    protected void onRestart() {
-        super.onRestart();
-        Log.e("Ciclo", "Activity: Metodo onRestart() chamado");
-    }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-        Log.e("Ciclo", "Activity: Metodo onResume() chamado");
-    }
-
-    @Override
-    protected void onPause() {
-        super.onPause();
-        Log.e("Ciclo", "Activity: Metodo onPause() chamado");
-    }
-
-    @Override
-    protected void onSaveInstanceState(Bundle outState) {
-        super.onSaveInstanceState(outState);
-        Log.e("Ciclo", "Activity: Metodo onSavedInstanceState() chamado");
-    }
-
-    @Override
-    protected void onStop() {
-        super.onStop();
-        Log.e("Ciclo", "Activity: Metodo onStop() chamado");
-    }
-
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        Log.e("Ciclo", "Activity: Metodo onDestroy() chamado");
-    }
 
 
 
