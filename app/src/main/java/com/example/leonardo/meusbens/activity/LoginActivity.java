@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.util.TypedValue;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -40,6 +41,7 @@ public class LoginActivity extends AppCompatActivity {
 
     private LoginButton loginButtonFacebook;
     private SignInButton loginButtonGoogle;
+    private Button botaoEntrar;
     private TextView esqueceSenha;
     private CallbackManager callbackManager;
     private TextView irparacadastro ;
@@ -55,6 +57,8 @@ public class LoginActivity extends AppCompatActivity {
 
         verificarUsuarioLogado();
 
+
+        botaoEntrar =(Button) findViewById(R.id.id_button_logar);
         loginButtonFacebook = (LoginButton) findViewById(R.id.buttonFacebook);
         loginButtonGoogle = findViewById(R.id.buttonGoogle);
         esqueceSenha = (TextView) findViewById(R.id.id_textView_esquece_sua_senha);
@@ -73,6 +77,11 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
 
+        botaoEntrar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                abrirTelaPrincipal();            }
+        });
         loginButtonGoogle.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

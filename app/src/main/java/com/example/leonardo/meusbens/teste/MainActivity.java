@@ -20,7 +20,6 @@ import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.ImageView;
 
-import com.example.leonardo.meusbens.Manifest;
 import com.example.leonardo.meusbens.R;
 
 public class MainActivity extends AppCompatActivity {
