@@ -32,6 +32,8 @@ import com.example.leonardo.meusbens.config.BancoDados;
 import com.example.leonardo.meusbens.fragments.AdicionarSubCategoriaFragment;
 import com.example.leonardo.meusbens.model.Categoria;
 import com.example.leonardo.meusbens.model.Item;
+import com.example.leonardo.meusbens.util.MaskEditUtil;
+import com.example.leonardo.meusbens.util.MoneyTextWatcher;
 import com.example.leonardo.meusbens.util.PassadorDeInformacao;
 import com.example.leonardo.meusbens.util.PassadorItem;
 import com.github.rtoshiro.util.format.SimpleMaskFormatter;
@@ -65,17 +67,10 @@ public class ItemActivity extends AppCompatActivity{
     private  byte[] fototipoBD;
     private  Bitmap bitmap = null;
 
-
-
-
-
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_item);
         receberActivity();
-
-
-
 
         imageItem = (ImageView) findViewById(R.id.imageViewItem);
         botoaOk = (Button) findViewById(R.id.buttonConfirmar);
@@ -123,6 +118,7 @@ public class ItemActivity extends AppCompatActivity{
         /**/
 
         categoria = (Spinner) findViewById(R.id.spinnerCategoria);
+
         botoaOk.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -139,6 +135,14 @@ public class ItemActivity extends AppCompatActivity{
             }
         });
 
+        /**************************************************************************
+         * MASCARA DE VALOR
+         *
+         **************************************************************************/
+
+        Locale mLocale = new Locale("pt", "BR");
+        valorItem.addTextChangedListener(new MoneyTextWatcher(valorItem, mLocale));
+
         listaCategoria();
 
         /**************************************************************************
@@ -149,7 +153,6 @@ public class ItemActivity extends AppCompatActivity{
         setSupportActionBar(toolbarPrincipal);
 
     }
-
 
     public void listaCategoria() {
 
@@ -162,13 +165,11 @@ public class ItemActivity extends AppCompatActivity{
             adapter = new ArrayAdapter<String>(ItemActivity.this,android.R.layout.simple_list_item_1, arraylist);
             categoria.setAdapter(adapter);
         }
-
         for (Categoria c : categorias){
             arraylist.add(c.getSubCategoria());
             adapter.notifyDataSetChanged();
         }
     }
-
 
     private void abrirCamera() {
 
@@ -180,14 +181,21 @@ public class ItemActivity extends AppCompatActivity{
     }
 
     private void inserirItem() {
+        String subCategoria= null;
         String nome = textoNomeItem.getText().toString();
         String valor = valorItem.getText().toString();
-        String subCategoria = categoria.getSelectedItem().toString();
+
+        if (arraylist.size()  == 0){
+            Toast.makeText(ItemActivity.this,"Por favor escolha uma categoria, caso não exista ad" +
+                    "iciona uma! ",Toast.LENGTH_SHORT).show();
+            abrirCaixaAdicionarCategoria();
+        }else{
+            subCategoria = categoria.getSelectedItem().toString();
+        }
+
         String categoriaPrincipal = retornoCategoriaEspecifica;
 
-
         byte[] foto = fototipoBD;
-
 
         boolean  resultadoCampoVazios = verificarDadosVazios(nome, valorItem.getText().toString(), subCategoria,bitmap);
         if (resultadoCampoVazios){
@@ -213,13 +221,12 @@ public class ItemActivity extends AppCompatActivity{
             valorItem.setError("Campo Obrigatório");
             return  false;
         }
-        if (subCategoria.isEmpty()){
+        if (subCategoria.isEmpty() ||  subCategoria.equals(null) ){
             Toast.makeText(ItemActivity.this,"Por favor escolha uma categoria, caso não exista ad" +
                     "iciona uma! ",Toast.LENGTH_SHORT).show();
             return  false;
 
         }
-
 
         if ( null ==  foto){
             Toast.makeText(ItemActivity.this,"Por favor escolha uma foto! ",Toast.LENGTH_LONG  ).show();
@@ -227,16 +234,13 @@ public class ItemActivity extends AppCompatActivity{
         }else {
             foto = null;
         }
-
         return  true;
     }
-
 
     private void obterFoto() {
         Intent intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
         startActivityForResult(intent,1);
     }
-
 
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -326,7 +330,6 @@ public class ItemActivity extends AppCompatActivity{
         switch (item.getItemId()) {
             case R.id.action_subcategoria:
                 abrirCaixaAdicionarCategoria();
-
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
@@ -372,12 +375,6 @@ public class ItemActivity extends AppCompatActivity{
 
         return inSampleSize;
     }
-
-
-
-
-
-
 
 
     private class Processo extends AsyncTask<String, String, String> {
