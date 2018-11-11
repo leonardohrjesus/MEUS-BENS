@@ -13,6 +13,8 @@ import android.os.ParcelFileDescriptor;
 import android.provider.MediaStore;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -32,13 +34,19 @@ import com.example.leonardo.meusbens.model.Categoria;
 import com.example.leonardo.meusbens.model.Item;
 import com.example.leonardo.meusbens.util.PassadorDeInformacao;
 import com.example.leonardo.meusbens.util.PassadorItem;
+import com.github.rtoshiro.util.format.SimpleMaskFormatter;
+import com.github.rtoshiro.util.format.text.MaskTextWatcher;
+import com.santalu.maskedittext.MaskEditText;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileDescriptor;
 import java.io.IOException;
+import java.math.BigDecimal;
+import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 public class ItemActivity extends AppCompatActivity{
 
@@ -46,7 +54,8 @@ public class ItemActivity extends AppCompatActivity{
     private Spinner categoria;
     private Button botoaOk;
     private EditText textoNomeItem;
-    private EditText valorItem;
+    private EditText  txtUnitario;
+    private MaskEditText valorItem;
     private android.support.v4.app.FragmentManager fm = getSupportFragmentManager();
     private String retornoCategoriaEspecifica;
     private BancoDados db = new BancoDados(this);
@@ -71,7 +80,48 @@ public class ItemActivity extends AppCompatActivity{
         imageItem = (ImageView) findViewById(R.id.imageViewItem);
         botoaOk = (Button) findViewById(R.id.buttonConfirmar);
         textoNomeItem = (EditText) findViewById(R.id.editTextNome);
-        valorItem = (EditText) findViewById(R.id.editTextvalor);
+        //valorItem = (EditText) findViewById(R.id.editTextvalor);
+        valorItem = findViewById(R.id.editTextvalor);
+
+
+        valorItem.addTextChangedListener(new TextWatcher()  {
+
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            private String current = "";
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                if (!s.toString().equals(current)) {
+                    Locale myLocale = new Locale("pt", "BR");
+                    //Nesse bloco ele monta a maskara para money
+                    txtUnitario.removeTextChangedListener(this);
+                    String cleanString = s.toString().replaceAll("[R$,.]", "");
+                    Double parsed = Double.parseDouble(cleanString);
+                    String formatted = NumberFormat.getCurrencyInstance(myLocale).format((parsed / 100));
+                    current = formatted;
+                    txtUnitario.setText(formatted);
+                    txtUnitario.setSelection(formatted.length());
+
+                    //Nesse bloco ele faz a conta do total (Caso a qtde esteja preenchida)
+                   // String qtde = txtQtdeLitros.getText().toString();
+
+                    txtUnitario.addTextChangedListener(this);
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+
+            }
+
+
+        });
+        /**/
+
         categoria = (Spinner) findViewById(R.id.spinnerCategoria);
         botoaOk.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -157,7 +207,7 @@ public class ItemActivity extends AppCompatActivity{
     private boolean verificarDadosVazios(String nome, String valor, String subCategoria,  Bitmap foto) {
         if (nome.isEmpty()){
             textoNomeItem.setError("Campo Obrigatório");
-            return  false;  
+            return  false;
         }
         if (valor.isEmpty()  ){
             valorItem.setError("Campo Obrigatório");
