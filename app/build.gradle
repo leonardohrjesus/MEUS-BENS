@@ -3,11 +3,11 @@ apply plugin: 'com.android.application'
 android {
     publishNonDefault true //this line
 
-    compileSdkVersion 26
+    compileSdkVersion 27
     defaultConfig {
         applicationId "com.example.leonardo.meusbens"
         minSdkVersion 20
-        targetSdkVersion 26
+        targetSdkVersion 27
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
@@ -33,20 +33,20 @@ dependencies {
 
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     //noinspection GradleCompatible,GradleCompatible
-    implementation 'com.android.support:appcompat-v7:26.1.0'
-    implementation 'com.android.support:design:26.1.0'
-    compile 'com.android.support.constraint:constraint-layout:1.1.0-beta4'
-    implementation 'com.android.support:support-v4:26.1.0'
+    implementation 'com.android.support:appcompat-v7:27.1.1'
+    implementation 'com.android.support:design:27.1.1'
+    implementation 'com.android.support.constraint:constraint-layout:1.1.0-beta4'
+    implementation 'com.android.support:support-v4:27.1.1'
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'com.android.support.test:runner:1.0.1'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.1'
-    compile 'com.google.firebase:firebase-database:11.8.0'
-    compile 'com.google.firebase:firebase-auth:11.8.0'
-    compile 'com.google.firebase:firebase-core:11.8.0'
-    compile 'com.google.android.gms:play-services-auth:11.8.0'
+    implementation 'com.google.firebase:firebase-database:11.8.0'
+    implementation 'com.google.firebase:firebase-auth:11.8.0'
+    implementation 'com.google.firebase:firebase-core:11.8.0'
+    implementation 'com.google.android.gms:play-services-auth:11.8.0'
     implementation 'com.facebook.android:facebook-login:[4,5)'
-    compile 'com.github.andreilisun:circular-layout:1.0'
-    compile 'com.github.rtoshiro.mflibrary:mflibrary:1.0.0'
+    implementation 'com.github.andreilisun:circular-layout:1.0'
+    implementation 'com.github.rtoshiro.mflibrary:mflibrary:1.0.0'
     implementation 'com.github.santalu:mask-edittext:1.0.9'
 
 

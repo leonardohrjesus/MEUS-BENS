@@ -56,9 +56,8 @@
             app:layout_constraintStart_toStartOf="parent" />
 
 
-        <com.santalu.maskedittext.MaskEditText
+        <EditText
             android:id="@+id/editTextvalor"
-            android:gravity="right"
             android:layout_width="0dp"
             android:layout_height="43dp"
             android:layout_marginBottom="8dp"
@@ -71,8 +70,7 @@
             app:layout_constraintBottom_toTopOf="@+id/buttonConfirmar"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="parent"
-            app:mask="#,##"/>
+            app:layout_constraintStart_toStartOf="parent" />
 
         <Button
             android:id="@+id/buttonConfirmar"
@@ -100,7 +98,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/imageViewItem" />
-            <!--android:onClick="selecionarCategoria" -->
+        <!--android:onClick="selecionarCategoria" -->
 
 
 
